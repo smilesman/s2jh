@@ -429,6 +429,12 @@
 				<groupId>com.octo.captcha</groupId>
 				<artifactId>jcaptcha</artifactId>
 				<version>1.0</version>
+				<exclusions>
+					<exclusion>
+						<artifactId>imaging</artifactId>
+						<groupId>com.jhlabs</groupId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>com.jhlabs</groupId>
@@ -1126,5 +1132,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 </project>
