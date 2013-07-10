@@ -21,7 +21,12 @@
                             <button type="button" class="btn" id="${entity_name_uncapitalize}DeleteBtn">
                                 <i class="icon-trash"></i> 删除
                             </button>
-                            <div class="divider-vertical"></div>
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn" title="高级查询"
+                                    onclick="$('#userListDiv').jqGrid('advSearch');">
+                                    <i class="icon-search"></i>
+                                </button>
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -35,10 +40,9 @@
 	<%@ include file="/common/index-footer.jsp"%>
     <script type="text/javascript">
         $(function() {
-
-            $("#${entity_name_uncapitalize}ListDiv").jqGrid("build",{
+            $("#${entity_name_uncapitalize}ListDiv").grid({
                 url: '${model_path}/${entity_name_field}!findByPage',
-                colNames : [ '操作','系统标识',<#list entityFields as entityField><#if entityField.list><#if entityField_index != 0>,</#if>'${entityField.title}'</#if></#list>,'创建时间','版本号'],
+                colNames : [ '操作',<#list entityFields as entityField><#if entityField.list><#if entityField_index != 0>,</#if>'${entityField.title}'</#if></#list>,'创建时间','版本号'],
                 colModel : [ {
                     name : 'operation',
                     align : 'center',
@@ -46,23 +50,18 @@
                     sortable : false,
                     hidedlg : true,
                     search : false,
-                    width : 25,
+                    width : 40,
                     formatter : function(cellValue, options, rowdata, action) {
-                        link = '<a class="btn-icon" href="javascript:void(0)" title="编辑" onclick="$.triggerGridRowDblClick(this)"><i class="icon-edit"></i></a>';
-                        return link;
-                    }
-                }, {
-                    name : 'displayId',
-                    align : 'center',
-                    fixed : true,
-                    hidedlg : true,
-                    width : 100,
-                    formatter : function(cellValue, options, rowdata, action) {
-                        link = '<a href="javascript:void(0)" title="查看" onclick="$.popupViewDialog(\'${base}${model_path}/${entity_name_field}!viewTabs?id='+options.rowId+'\')">'+cellValue+'</a>';
-                        return link;
-                    }
-                <#list entityFields as entityField> 
-                <#if entityField.list>                      
+                        return $.jgrid.buildButtons([ {
+                            title : "编辑",
+                            icon : "ui-icon-pencil",
+                            onclick : "$('#" + $(this).attr("id") + "').jqGrid('editRow','" + rowdata.id + "')"
+                        }, {
+                            title : "查看",
+                            icon : "ui-icon-folder-open",
+                            onclick : "$.popupViewDialog('${base}${model_path}/${entity_name_field}!viewTabs?id=" + options.rowId + "')"
+                        } ]);
+                    }                 
                 }, {
                     name : '${entityField.fieldName}',
                 <#if entityField.listWidth!=0>  
@@ -91,29 +90,27 @@
                    hidden : true,
                    hidedlg : true
                 } ],
-                ondblClickEnabledRow : function(rowid, iRow, iCol, e, rowdata){
-                    $("#${entity_name_uncapitalize}IndexTabs").tabs("add", '${base}${model_path}/${entity_name_field}!inputTabs?id=' + rowid, "编辑-" + eraseCellValueLink(rowdata.displayId));
+                delRow : {
+                    url : "${base}${model_path}/${entity_name_field}!doDelete"
                 },
+                addRow : {
+                    url : "${base}${model_path}/${entity_name_field}!inputTabs",
+                    toTab : "#${entity_name_uncapitalize}IndexTabs"
+                },
+                editRow : {
+                    url : "${base}${model_path}/${entity_name_field}!inputTabs",
+                    toTab : "#${entity_name_uncapitalize}IndexTabs",
+                    labelCol : 'TODO'
+                },                
                 caption:"${model_title}列表"
             }); 
             
             $("#${entity_name_uncapitalize}AddBtn").click(function() {
-                $("#${entity_name_uncapitalize}IndexTabs").tabs("add", "${base}${model_path}/${entity_name_field}!inputTabs", "添加-新${model_title}");
+                $("#${entity_name_uncapitalize}ListDiv").jqGrid('addRow');
             });
             
             $("#${entity_name_uncapitalize}DeleteBtn").click(function() {
-                if (rowids = $("#${entity_name_uncapitalize}ListDiv").jqGrid("getAtLeastOneSelectedItem")) {
-                    $.ajaxPostURL({
-                        url : '${base}${model_path}/${entity_name_field}!doDelete',
-                        data : {
-                            ids : rowids
-                        },
-                        confirm : '确认删除所选行项？',
-                        successCallback : function(response) {
-                            $("#${entity_name_uncapitalize}ListDiv").jqGrid("refresh");
-                        }
-                    });
-                }
+                $("#${entity_name_uncapitalize}ListDiv").jqGrid('delRow');
             });                         
          });
     </script>	
