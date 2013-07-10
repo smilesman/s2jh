@@ -13,6 +13,11 @@
 	<name>s2jh :: module :: core</name>
 
 	<dependencies>
+        <dependency>
+            <groupId>lab.s2jh</groupId>
+            <artifactId>core-service</artifactId>
+            <version>0.0.1</version>
+        </dependency>	
 		<!-- j2ee web spec -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
