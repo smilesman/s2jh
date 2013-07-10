@@ -35,6 +35,5 @@
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/common-service"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/core-service"/>
-	<classpathentry kind="lib" path="/project-tools/lib/core-service-1.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

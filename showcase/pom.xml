@@ -13,6 +13,11 @@
 	<name>s2jh :: showcase</name>
 
 	<dependencies>
+        <dependency>
+            <groupId>lab.s2jh</groupId>
+            <artifactId>core-service</artifactId>
+            <version>0.0.1</version>
+        </dependency>	
 		<dependency>
 			<groupId>lab.s2jh</groupId>
 			<artifactId>core-service</artifactId>
