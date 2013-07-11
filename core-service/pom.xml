@@ -16,10 +16,11 @@
 	    <!-- temporary use -->
         <dependency>
             <groupId>lab.s2jh</groupId>
-            <artifactId>core-service</artifactId>
+            <artifactId>core-service-temp</artifactId>
             <version>0.0.1</version>
             <scope>compile</scope>
         </dependency>
+        
 		<!-- j2ee web spec -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
