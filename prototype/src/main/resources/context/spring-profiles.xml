@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+
+	<!-- default环境 -->
+	<beans profile="default-mysql">
+		<bean id="extSlf4jSpyLogDelegator" class="net.sf.log4jdbc.ExtSlf4jSpyLogDelegator" />
+		<!-- DBCP连接池 -->
+		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+			destroy-method="close" depends-on="extSlf4jSpyLogDelegator">
+			<property name="driverClassName" value="net.sf.log4jdbc.DriverSpy" />
+			<property name="url"
+				value="jdbc:log4jdbc:mysql://localhost:3306/sss?useUnicode=true&amp;characterEncoding=utf-8" />
+			<property name="username" value="showcase" />
+			<property name="password" value="showcase" />
+		</bean>
+	</beans>
+
+
+	<beans profile="default">
+		<!-- H2文件模式数据库 -->
+		<bean id="dataSourceSpied"
+			class="org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactoryBean">
+			<property name="databaseName" value="c:\\h2\\prototype" />
+			<property name="databaseConfigurer">
+				<bean
+					class="org.springframework.jdbc.datasource.embedded.H2EmbeddedFileDatabaseConfigurer"
+					factory-method="getInstance">
+				</bean>
+			</property>
+		</bean>
+
+		<bean id="extSlf4jSpyLogDelegator" class="net.sf.log4jdbc.ExtSlf4jSpyLogDelegator" />
+
+		<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource"
+			depends-on="extSlf4jSpyLogDelegator">
+			<constructor-arg>
+				<ref bean="dataSourceSpied" />
+			</constructor-arg>
+		</bean>
+
+		<jdbc:initialize-database data-source="dataSource"
+			ignore-failures="ALL" enabled="${jdbc.initialize.database.enable}">
+			<jdbc:script location="classpath:sql/data/t_sys_menu.sql"
+				encoding="UTF-8" />
+			<jdbc:script location="classpath:sql/data/t_auth_user.sql"
+				encoding="UTF-8" />
+			<jdbc:script location="classpath:sql/data/t_auth_privilege.sql"
+				encoding="UTF-8" />
+			<jdbc:script location="classpath:sql/data/t_auth_role.sql"
+				encoding="UTF-8" />
+			<jdbc:script location="classpath:sql/data/t_auth_user_r2_role.sql"
+				encoding="UTF-8" />
+		</jdbc:initialize-database>
+	</beans>
+
+	<!-- unit test环境 -->
+	<beans profile="test">
+		<!-- 嵌入式内存中数据库 -->
+		<jdbc:embedded-database id="dataSourceSpied"
+			type="H2">
+			<jdbc:script location="classpath:sql/h2/schema.sql" />
+			<!-- <jdbc:script location="classpath:data/import-data.sql" encoding="UTF-8"/> -->
+		</jdbc:embedded-database>
+
+		<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+			<constructor-arg>
+				<ref bean="dataSourceSpied" />
+			</constructor-arg>
+		</bean>
+	</beans>
+</beans>

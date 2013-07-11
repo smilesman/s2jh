@@ -102,7 +102,10 @@ public class AuthUserDetailsService implements UserDetailsService {
         authUserDetails.setAclType(user.getAclType());
         authUserDetails.setEmail(user.getEmail());
 
-        authUserDetails.setAclCodePrefixs(aclService.getStatAclCodePrefixs(user.getAclCode()));
+        if(aclService!=null){
+            authUserDetails.setAclCodePrefixs(aclService.getStatAclCodePrefixs(user.getAclCode()));
+        }
+        
         //处理用户拥有的权限代码集合
         Set<String> privilegeCodeSet = new HashSet<String>();
         if (superAdminUser) {

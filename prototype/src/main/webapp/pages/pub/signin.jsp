@@ -9,9 +9,20 @@
 <head>
 <%@ include file="/common/page-header.jsp"%>
 <%@ include file="/common/index-header.jsp"%>
-<script src="${base}/components/jquery-ui/1.10.0/js/jquery-ui-1.10.0.custom.js?_=${buildVersion}"></script>
 <title>Admin Console Signin</title>
+<script type="text/javascript">
+    $().ready(function() {
+        $("#loginForm").submit(function() {
+            if ($("#login_AclCode").val() != "") {
+                $("#j_username").val($("#login_AclCode").val() + "#" + $("#login_Username").val());
+            } else {
+                $("#j_username").val($("#login_Username").val());
+            }
+        });
 
+        $("#login_Username").focus();
+    });
+</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -107,15 +118,8 @@
                         }
                     </script>
 					<div class="control-group">
-						<small>开发测试登录快速入口:<br> <a href="javascript:void(0)" class=""
-							onclick="setupDevUser('','admin','123')">admin</a> | <a href="javascript:void(0)" class=""
-							onclick="setupDevUser('000000','zy01','123')">(中央)zy01</a> | <a href="javascript:void(0)"
-							onclick="setupDevUser('510000','sj01','123')">(省级)四川省sj01</a> | <a href="javascript:void(0)"
-							onclick="setupDevUser('510900','ds01','123')">(地市)遂宁市ds01</a> | <a href="javascript:void(0)"
-							onclick="setupDevUser('510800','gy01','123')">(地市)广元市gy01</a> | <a href="javascript:void(0)"
-							onclick="setupDevUser('510904','qx01','123')">(区县)遂宁市安居区qx01</a> | <a
-							href="javascript:void(0)" onclick="setupDevUser('3651819403','xx01','123')">(学校1)安居区机电学校xx01</a>
-							| <a href="javascript:void(0)" onclick="setupDevUser('3651898346','xx02','123')">(学校2)安居区翔飞航空职业技术学xx02</a>
+						<small>开发测试登录快速入口:<a href="javascript:void(0)"
+							onclick="setupDevUser('','admin','123')">admin</a>
 						</small>
 					</div>
 					<%
@@ -133,31 +137,5 @@
 		</div>
 	</div>
 	<%@ include file="/common/index-footer.jsp"%>
-	<script type="text/javascript">
-        $().ready(function() {
-
-            $("#login_AclCode").autocomplete({
-                minLength : 2,
-                source : WEB_ROOT + '/pub/acl-code!autocomplete.json',
-                select : function(event, ui) {
-                    $("#login_AclCode_text").html(ui.item.label);
-                    $("#login_AclCode").val(ui.item.value);
-                    return false;
-                }
-            }).data("ui-autocomplete")._renderItem = function(ul, item) {
-                return $("<li>").append("<a><b>" + item.value + "</b> " + item.label + "</a>").appendTo(ul);
-            };
-
-            $("#loginForm").submit(function() {
-                if ($("#login_AclCode").val() != "") {
-                    $("#j_username").val($("#login_AclCode").val() + "#" + $("#login_Username").val());
-                } else {
-                    $("#j_username").val($("#login_Username").val());
-                }
-            });
-
-            $("#login_Username").focus();
-        });
-    </script>
 </body>
 </html>
