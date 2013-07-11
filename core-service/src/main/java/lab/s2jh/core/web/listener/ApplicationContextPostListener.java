@@ -61,7 +61,7 @@ public class ApplicationContextPostListener implements ServletContextListener {
                         String simpleName = fieldClass.getSimpleName();
                         Class<?> existClass = enumShortNameClassMapping.get(simpleName);
                         if (existClass == null) {
-                            logger.info(" - Put Enum short name mapping: {}={}", simpleName, fieldClass);
+                            //logger.info(" - Put Enum short name mapping: {}={}", simpleName, fieldClass);
                             enumShortNameClassMapping.put(simpleName, fieldClass);
                         } else {
                             if (!existClass.equals(fieldClass)) {
