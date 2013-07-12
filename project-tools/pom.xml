@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>project-tools</artifactId>
 	<parent>
-        <groupId>lab.s2jh</groupId>
-        <artifactId>s2jh-parent</artifactId>
-        <version>1.0.0</version>
+		<groupId>lab.s2jh</groupId>
+		<artifactId>s2jh-parent</artifactId>
+		<version>1.0.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<packaging>jar</packaging>
@@ -30,7 +30,7 @@
 									<arg value="java" />
 									<arg value="-cp" />
 									<arg
-										value="${compile_classpath};../core-service/target/classes;../common-service/target/classes" />
+										value="${compile_classpath};../core-service/target/classes;../common-service/target/classes;../prototype/target/classes" />
 									<arg value="lab.apollo.tool.builder.SourceCodeFrameworkBuilder" />
 									<arg value="${generated.source.dir}" />
 								</exec>
@@ -63,7 +63,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

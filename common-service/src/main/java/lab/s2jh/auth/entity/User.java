@@ -104,6 +104,7 @@ public class User extends BaseEntity<String> {
     }
 
     public void setId(final String id) {
+        //容错处理id以空字符提交参数时修改为null避免hibernate主键无效修改
         if (id == null || StringUtils.isBlank(id)) {
             this.id = null;
         } else {

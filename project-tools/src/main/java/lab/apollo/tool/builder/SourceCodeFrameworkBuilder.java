@@ -185,7 +185,7 @@ public class SourceCodeFrameworkBuilder {
                     + "Service.java");
             process(cfg.getTemplate("Controller.ftl"), root, standaloneRootPath + "\\web\\action\\", className
                     + "Controller.java");
-            process(cfg.getTemplate("Test.ftl"), root, standaloneRootPath + "\\test\\", className + "Test.java");
+            process(cfg.getTemplate("Test.ftl"), root, standaloneRootPath + "\\test\\service\\", className + "ServiceTest.java");
             process(cfg.getTemplate("JSP_Index.ftl"), root, standaloneRootPath + "\\jsp\\", nameField + "-index.jsp");
             process(cfg.getTemplate("JSP_Input_Tabs.ftl"), root, standaloneRootPath + "\\jsp\\", nameField
                     + "-inputTabs.jsp");

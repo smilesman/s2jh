@@ -41,7 +41,7 @@
     <script type="text/javascript">
         $(function() {
             $("#${entity_name_uncapitalize}ListDiv").grid({
-                url: '${model_path}/${entity_name_field}!findByPage',
+                url: '${base}${model_path}/${entity_name_field}!findByPage',
                 colNames : [ '操作',<#list entityFields as entityField><#if entityField.list><#if entityField_index != 0>,</#if>'${entityField.title}'</#if></#list>,'创建时间','版本号'],
                 colModel : [ {
                     name : 'operation',
@@ -62,6 +62,8 @@
                             onclick : "$.popupViewDialog('${base}${model_path}/${entity_name_field}!viewTabs?id=" + options.rowId + "')"
                         } ]);
                     }                 
+                <#list entityFields as entityField> 
+                <#if entityField.list>                      
                 }, {
                     name : '${entityField.fieldName}',
                 <#if entityField.listWidth!=0>  
