@@ -49,21 +49,22 @@ public class RoleController extends BaseController<Role, String> {
         //Do nothing check
     }
     
-
     public Map<Integer, String> getAclTypeMap() {
-        Integer authUserAclType = AuthContextHolder.getAuthUserDetails().getAclType();
-        if (authUserAclType == null) {
-            return aclService.getAclTypeMap();
-        } else {
-            Map<Integer, String> aclTypeMap = Maps.newLinkedHashMap();
-            Map<Integer, String> globalAclTypeMap = aclService.getAclTypeMap();
-            for (Integer aclType : globalAclTypeMap.keySet()) {
-                if (authUserAclType >= aclType) {
-                    aclTypeMap.put(aclType, globalAclTypeMap.get(aclType));
+        Map<Integer, String> aclTypeMap = Maps.newLinkedHashMap();
+        if (aclService != null) {
+            Integer authUserAclType = AuthContextHolder.getAuthUserDetails().getAclType();
+            if (authUserAclType == null) {
+                aclTypeMap = aclService.getAclTypeMap();
+            } else {
+                Map<Integer, String> globalAclTypeMap = aclService.getAclTypeMap();
+                for (Integer aclType : globalAclTypeMap.keySet()) {
+                    if (authUserAclType >= aclType) {
+                        aclTypeMap.put(aclType, globalAclTypeMap.get(aclType));
+                    }
                 }
             }
-            return aclTypeMap;
         }
+        return aclTypeMap;
     }
     
     @SecurityControllIgnore

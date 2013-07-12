@@ -3,8 +3,8 @@
 <%@ include file="/common/page-header.jsp"%>
 <script type="text/javascript">
     $().ready(function() {
-        $("#userRelatedRoleListDiv<s:property value='#parameters.id'/>").grid({
-            url : "${base}/auth/user!findRelatedRoles?id=<s:property value='#parameters.id'/>",
+        $("#privilegeRelatedRoleListDiv<s:property value='#parameters.id'/>").grid({
+            url : "${base}/auth/privilege!findRelatedRoles?id=<s:property value='#parameters.id'/>",
             colNames : [ '关联状态', '代码', '类别', '名称', '禁用标识', '锁定标识', '关联时间', '创建时间', '版本号' ],
             colModel : [ {
                 name : 'extraAttributes.related',
@@ -18,7 +18,6 @@
             }, {
                 name : 'code',
                 align : 'left',
-                fixed : true,
                 width : 120,
                 formatter : function(cellValue, options, rowdata, action) {
                     return $.jgrid.buildLink({
@@ -29,7 +28,8 @@
             }, {
                 name : 'aclType',
                 align : 'center',
-                width : 60
+                width : 60,
+                fixed : true
             }, {
                 name : 'title',
                 align : 'left'
@@ -44,7 +44,7 @@
                 width : 140,
                 fixed : true,
                 search : false,
-                align : 'center'
+                align : 'center'                
             }, {
                 name : 'createdDate',
                 width : 140,
@@ -55,35 +55,39 @@
                 name : 'version',
                 hidden : true,
                 hidedlg : true
-            } ],
+            }],
             cmTemplate : {
                 sortable : false
             },
-            rowNum : -1,
-            pager : false,
+            grouping : true,
+            groupingView : {
+                groupField : [ 'aclType' ],
+                groupOrder : [ 'desc' ],
+                groupCollapse : false
+            },
             caption : "角色列表"
         });
 
-        $("#userRelatedToolbar<s:property value='#parameters.id'/> .r2-operation").click(function() {
-            if (rowids = $("#userRelatedRoleListDiv<s:property value='#parameters.id'/>").jqGrid("getAtLeastOneSelectedItem")) {
+        $("#privilegeRelatedToolbar<s:property value='#parameters.id'/> .r2-operation").click(function() {
+            if (rowids = $("#privilegeRelatedRoleListDiv<s:property value='#parameters.id'/>").jqGrid("getAtLeastOneSelectedItem")) {
                 $.ajaxPostURL({
-                    url : '${base}/auth/user!doUpdateRelatedRoleR2s?op=' + $(this).val(),
+                    url : '${base}/auth/privilege!doUpdateRelatedRoleR2s?op=' + $(this).val(),
                     data : {
                         id : "<s:property value='%{#parameters.id}'/>",
                         r2ids : rowids
                     },
                     successCallback : function(response) {
-                        $("#userRelatedRoleListDiv<s:property value='#parameters.id'/>").jqGrid("refresh");
-                        $("#userRelatedPrivilegeListDiv<s:property value='#parameters.id'/>").jqGrid("refresh");
+                        $("#privilegeRelatedRoleListDiv<s:property value='#parameters.id'/>").jqGrid("refresh");
                     }
                 });
             }
         });
+
     });
 </script>
 <div class="container-fluid">
 	<div class="toolbar">
-		<div class="toolbar-inner" id="userRelatedToolbar<s:property value='#parameters.id'/>">
+		<div class="toolbar-inner" id="privilegeRelatedToolbar<s:property value='#parameters.id'/>">
 			<button type="button" class="btn r2-operation" value="add">
 				<i class="icon-resize-small"></i> 添加关联
 			</button>
@@ -92,6 +96,8 @@
 			</button>
 		</div>
 	</div>
-	<table id="userRelatedRoleListDiv<s:property value='#parameters.id'/>"></table>
-	<div id="userRelatedRoleListDiv<s:property value='#parameters.id'/>Pager"></div>
+	<div class="row-fluid">
+		<table id="privilegeRelatedRoleListDiv<s:property value='#parameters.id'/>"></table>
+		<div id="privilegeRelatedRoleListDiv<s:property value='#parameters.id'/>Pager"></div>
+	</div>
 </div>

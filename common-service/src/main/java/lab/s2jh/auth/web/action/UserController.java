@@ -61,23 +61,27 @@ public class UserController extends BaseController<User, String> {
 
     @Override
     protected void checkEntityAclPermission(User entity) {
-        aclService.validateAuthUserAclCodePermission(entity.getAclCode());
+        if (aclService != null) {
+            aclService.validateAuthUserAclCodePermission(entity.getAclCode());
+        }
     }
 
     public Map<Integer, String> getAclTypeMap() {
-        Integer authUserAclType = AuthContextHolder.getAuthUserDetails().getAclType();
-        if (authUserAclType == null) {
-            return aclService.getAclTypeMap();
-        } else {
-            Map<Integer, String> aclTypeMap = Maps.newLinkedHashMap();
-            Map<Integer, String> globalAclTypeMap = aclService.getAclTypeMap();
-            for (Integer aclType : globalAclTypeMap.keySet()) {
-                if (authUserAclType >= aclType) {
-                    aclTypeMap.put(aclType, globalAclTypeMap.get(aclType));
+        Map<Integer, String> aclTypeMap = Maps.newLinkedHashMap();
+        if (aclService != null) {
+            Integer authUserAclType = AuthContextHolder.getAuthUserDetails().getAclType();
+            if (authUserAclType == null) {
+                aclTypeMap = aclService.getAclTypeMap();
+            } else {
+                Map<Integer, String> globalAclTypeMap = aclService.getAclTypeMap();
+                for (Integer aclType : globalAclTypeMap.keySet()) {
+                    if (authUserAclType >= aclType) {
+                        aclTypeMap.put(aclType, globalAclTypeMap.get(aclType));
+                    }
                 }
             }
-            return aclTypeMap;
         }
+        return aclTypeMap;
     }
 
     @SecurityControllIgnore
@@ -161,9 +165,11 @@ public class UserController extends BaseController<User, String> {
         }
         Pageable pageable = PropertyFilter.buildPageableFromHttpRequest(getRequest());
         Page<User> page = this.getEntityService().findByPage(groupFilter, pageable);
-        Map<Integer, String> globalAclTypeMap = aclService.getAclTypeMap();
-        for (User user : page.getContent()) {
-            user.addExtraAttribute("aclTypeLabel", globalAclTypeMap.get(user.getAclType()));
+        if (aclService != null) {
+            Map<Integer, String> globalAclTypeMap = aclService.getAclTypeMap();
+            for (User user : page.getContent()) {
+                user.addExtraAttribute("aclTypeLabel", globalAclTypeMap.get(user.getAclType()));
+            }
         }
         setModel(page);
         return buildDefaultHttpHeaders();
@@ -179,17 +185,19 @@ public class UserController extends BaseController<User, String> {
     @SecurityControllIgnore
     public HttpHeaders aclCodes() {
         List<ValueLabelBean> lvList = Lists.newArrayList();
-        String term = this.getParameter("term");
-        if (term != null && term.length() >= 2) {
-            Map<String, String> keyValueMap = aclService.findAclCodesMap();
-            Collection<String> aclCodePrefixs = AuthContextHolder.getAuthUserDetails().getAclCodePrefixs();
+        if (aclService != null) {
+            String term = this.getParameter("term");
+            if (term != null && term.length() >= 2) {
+                Map<String, String> keyValueMap = aclService.findAclCodesMap();
+                Collection<String> aclCodePrefixs = AuthContextHolder.getAuthUserDetails().getAclCodePrefixs();
 
-            for (Map.Entry<String, String> me : keyValueMap.entrySet()) {
-                String key = me.getKey();
-                if (key.startsWith(term)) {
-                    for (String aclCodePrefix : aclCodePrefixs) {
-                        if (key.startsWith(aclCodePrefix)) {
-                            lvList.add(new ValueLabelBean(me.getKey(), me.getValue()));
+                for (Map.Entry<String, String> me : keyValueMap.entrySet()) {
+                    String key = me.getKey();
+                    if (key.startsWith(term)) {
+                        for (String aclCodePrefix : aclCodePrefixs) {
+                            if (key.startsWith(aclCodePrefix)) {
+                                lvList.add(new ValueLabelBean(me.getKey(), me.getValue()));
+                            }
                         }
                     }
                 }
