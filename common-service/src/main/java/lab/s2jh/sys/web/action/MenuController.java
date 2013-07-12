@@ -102,7 +102,13 @@ public class MenuController extends BaseController<Menu, String> {
         for (Menu menu : menus) {
             loopMenu(menuList, menu);
         }
-        setModel(menuList);
+        Map<String, Object> root = Maps.newHashMap();
+        root.put("id", "");
+        root.put("name", "根节点");
+        root.put("open", true);
+        root.put("disabled", false);
+        root.put("children", menuList);
+        setModel(root);
         return buildDefaultHttpHeaders();
     }
 

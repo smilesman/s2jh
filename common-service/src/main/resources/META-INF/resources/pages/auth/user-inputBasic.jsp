@@ -25,13 +25,11 @@
 		</div>
 		<div class="well">
 			<div class="row-fluid">
+                <div class="span6">
+                    <s2:textfield name="signinid" label="登录账号" disabled="%{persistentedModel}" />
+                </div>			
 				<div class="span6">
-					<s2:aclcode label="机构代码" name="aclCode" disabled="%{persistentedModel}" />
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<s2:textfield name="signinid" label="登录账号" disabled="%{persistentedModel}" />
+				    <s2:textfield name="aclCode" label="机构代码" />
 				</div>
 			</div>
 			<s:if test="model.id!=null&&model.id!=''">
