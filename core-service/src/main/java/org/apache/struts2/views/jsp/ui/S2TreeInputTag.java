@@ -29,10 +29,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.components.UIBean;
 
 /**
- * 扩展标准的select标签，提供自动化数据校验处理支持
- * 并以Combo组件风格样式呈现下拉框，支持根据输入(拼音)自动提示选择option项目
- * 从而使用户可以更高效便捷的定位选取下拉行项
- * 示例： <s2:comboselect name="mzm" label="民族" list="%{findEnumValuesByType('ZD_GB_MZM')}"/>
+ * 基于下拉输入框样式的树形结构数据选取组件
+ * 示例：<s2:treeinput name="parentName" label="父节点" hiddenName="parentId" 
+           treeDataUrl="/sys/menu!list" readonly="true" value="%{parent.title}" hiddenValue="%{parent.id}" />
  */
 public class S2TreeInputTag extends TextFieldTag {
 
@@ -42,10 +41,13 @@ public class S2TreeInputTag extends TextFieldTag {
      */
     protected String validator;
 
+    /** 展开树形数据选取界面时AJAX异步加载Tree结构数据的URL */
     protected String treeDataUrl;
 
+    /** 默认选取文本带入输入框显示，节点对应底层的Value值以隐藏元素hiddenName存取 */
     protected String hiddenName;
 
+    /** hiddenName隐藏元素初始化值 */
     protected String hiddenValue;
 
     protected void populateParams() {
