@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/common/page-header.jsp"%>
 <%@ include file="/common/index-header.jsp"%>
-<title>S2JH Showcase</title>
+<title>S2JH Prototype</title>
 <script src="${base}/components/jquery-xtabpanel/2.0/xTabPanel.js?_=${buildVersion}"></script>
 <link rel="stylesheet" type="text/css"
 	href="${base}/components/jquery-xtabpanel/2.0/xTabPanel.css?_=${buildVersion}">
