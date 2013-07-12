@@ -26,17 +26,7 @@
 		<div class="well">
 			<div class="row-fluid">
 				<div class="span6">
-					<s2:textfield name="code" label="代码" readonly="true" />
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<s2:textfield name="category" label="分类" />
-				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span6">
-					<s2:textfield name="parentCode" label="父代码" />
+					<s2:combotext list="categoryMap" name="category" label="分类" />
 				</div>
 			</div>
 			<div class="row-fluid">
@@ -64,6 +54,16 @@
 					<s2:textarea name="data3Value" label="数据2设定" rows="3" />
 				</div>
 			</div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <s2:textfield name="code" label="代码" disabled="%{persistentedModel}" />
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <s2:textfield name="parentCode" label="父代码" />
+                </div>
+            </div>			
 			<div class="row-fluid">
 				<div class="span6">
 					<s2:radio name="disabled" list="#application.booleanLabelMap" label="禁用标识" />

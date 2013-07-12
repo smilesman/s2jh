@@ -34,7 +34,7 @@ public class DataDict extends BaseEntity<String> {
 
     @MetaData(title = "代码", description = "自动生成，主要用在偶尔进行父子关系设定时需要")
     @EntityAutoCode(order = 6, search = false)
-    private String code = "AUTO";
+    private String code;
 
     @MetaData(title = "父代码", description = "主要用在偶尔进行父子关系设定时需要")
     @EntityAutoCode(order = 7, search = false)

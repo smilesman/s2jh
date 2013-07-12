@@ -1,4 +1,6 @@
-package ${root_package}.test.service;
+package ${root_package}.service.test;
+
+import java.util.List;
 
 import ${root_package}.entity.${entity_name};
 import ${root_package}.service.${entity_name}Service;

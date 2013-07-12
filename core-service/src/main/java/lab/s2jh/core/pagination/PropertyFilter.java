@@ -287,7 +287,7 @@ public class PropertyFilter {
                     if (sort == null) {
                         sort = new Sort(sord, sidxItemWithOrder[0]);
                     } else {
-                        sort.and(new Sort(sord, sidxItemWithOrder[0]));
+                        sort = sort.and(new Sort(sord, sidxItemWithOrder[0]));
                     }
 
                 } else {
@@ -295,7 +295,7 @@ public class PropertyFilter {
                         sort = new Sort("desc".equalsIgnoreCase(sidxItemWithOrder[1]) ? Direction.DESC : Direction.ASC,
                                 sidxItemWithOrder[0]);
                     } else {
-                        sort.and(new Sort("desc".equalsIgnoreCase(sidxItemWithOrder[1]) ? Direction.DESC
+                        sort = sort.and(new Sort("desc".equalsIgnoreCase(sidxItemWithOrder[1]) ? Direction.DESC
                                 : Direction.ASC, sidxItemWithOrder[0]));
                     }
                 }
