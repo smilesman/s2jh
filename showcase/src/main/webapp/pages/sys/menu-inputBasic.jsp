@@ -28,7 +28,7 @@
 			<div class="row-fluid">
 				<div class="span6">
 					<s2:treeinput name="parentName" label="父节点" hiddenName="parentId" treeDataUrl="/sys/menu!list"
-						readonly="true" />
+						readonly="true" value="%{parent.title}" hiddenValue="%{parent.id}" />
 				</div>
 			</div>
 			<div class="row-fluid">

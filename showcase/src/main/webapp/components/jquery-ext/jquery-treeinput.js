@@ -1,7 +1,7 @@
 (function($) {
     $.widget("ui.treeinput", {
         options : {
-
+            hiddenValue: ''
         },
         _create : function() {
 
@@ -14,7 +14,7 @@
 
             var hiddenElement = null;
             if (self.options.hiddenName && self.options.hiddenName != '') {
-                hiddenElement = $('<input name="' + self.options.hiddenName + '" type="hidden"/>');
+                hiddenElement = $('<input name="' + self.options.hiddenName + ' value="' + self.options.hiddenValue + '"  type="hidden"/>');
                 hiddenElement.appendTo(divContaner);
             }
 

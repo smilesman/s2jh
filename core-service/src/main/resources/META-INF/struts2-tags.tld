@@ -4700,7 +4700,13 @@
       <name>hiddenName</name>
       <required>false</required>
       <rtexprvalue>false</rtexprvalue>
-    </attribute>      
+    </attribute> 
+    <attribute>
+      <description><![CDATA[Set the html hiddenValue attribute on rendered html element]]></description>
+      <name>hiddenValue</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>         
     <attribute>
       <description><![CDATA[Set the html validator attribute on rendered html element]]></description>
       <name>validator</name>

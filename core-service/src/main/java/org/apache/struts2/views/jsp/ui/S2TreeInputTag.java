@@ -41,11 +41,12 @@ public class S2TreeInputTag extends TextFieldTag {
      * 如果在元素中定义此属性则以直接定义属性值作为JQuery Validator校验语法字符串，不再进行自动校验逻辑计算处理 
      */
     protected String validator;
-    
+
     protected String treeDataUrl;
-    
+
     protected String hiddenName;
 
+    protected String hiddenValue;
 
     protected void populateParams() {
         //此段落必须放在super.populateParams()之前
@@ -56,12 +57,22 @@ public class S2TreeInputTag extends TextFieldTag {
             if (StringUtils.isNotBlank(hiddenName)) {
                 this.setDynamicAttribute(null, "hiddenName", hiddenName);
             }
+
+            Object realHiddenValue = null;
+            if (hiddenValue != null) {
+                realHiddenValue = findValue(hiddenValue);
+            } else if (hiddenName != null) {
+                realHiddenValue = findValue(hiddenName);
+            }
+            if (realHiddenValue != null) {
+                this.setDynamicAttribute(null, "hiddenValue", realHiddenValue);
+            }
         } catch (JspException e) {
             e.printStackTrace();
         }
-        
+
         super.populateParams();
-        
+
         UIBean uiBean = ((UIBean) component);
         uiBean.setTemplate("treeinput");
         if (id == null) {
@@ -80,12 +91,16 @@ public class S2TreeInputTag extends TextFieldTag {
     public void setValidator(String validator) {
         this.validator = validator;
     }
-    
+
     public void setTreeDataUrl(String treeDataUrl) {
         this.treeDataUrl = treeDataUrl;
     }
 
     public void setHiddenName(String hiddenName) {
         this.hiddenName = hiddenName;
+    }
+
+    public void setHiddenValue(String hiddenValue) {
+        this.hiddenValue = hiddenValue;
     }
 }

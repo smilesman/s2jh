@@ -8,7 +8,8 @@
 $(function() {
     $("#${parameters.id?html}").treeinput({
         url: '${request.contextPath}${parameters.dynamicAttributes["treeDataUrl"]?default("false")?html}',
-        hiddenName: '${parameters.dynamicAttributes["hiddenName"]?default("")?html}'
+        hiddenName: '${parameters.dynamicAttributes["hiddenName"]?default("")?html}',
+        hiddenValue: '${parameters.dynamicAttributes["hiddenValue"]?default("")?html}'
     });
 })
 </script>
