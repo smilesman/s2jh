@@ -253,6 +253,9 @@
                         onClickButton : function() {
                             if (pin.addRow.toTab) {
                                 $(pin.addRow.toTab).tabs("add", pin.addRow.url, pin.addRow.title);
+                            }else{
+                                var tab= $(this).closest("div.ui-tabs");
+                                tab.tabs("add", pin.addRow.url, pin.addRow.title);
                             }
                         }
                     }, pin.addRow);
@@ -515,10 +518,6 @@ function booleanFormatter(cellValue, options, rowdata) {
     } else {
         return '否';
     }
-}
-
-function displayIdFormatter(cellValue, options, rowdata) {
-    alert("TODO")
 }
 
 function eraseCellValueLink(cellValue) {

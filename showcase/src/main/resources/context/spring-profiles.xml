@@ -14,7 +14,7 @@
 			destroy-method="close" depends-on="extSlf4jSpyLogDelegator">
 			<property name="driverClassName" value="net.sf.log4jdbc.DriverSpy" />
 			<property name="url"
-				value="jdbc:log4jdbc:mysql://localhost:3306/sss?useUnicode=true&amp;characterEncoding=utf-8" />
+				value="jdbc:log4jdbc:mysql://localhost:3306/showcase?useUnicode=true&amp;characterEncoding=utf-8" />
 			<property name="username" value="showcase" />
 			<property name="password" value="showcase" />
 		</bean>
