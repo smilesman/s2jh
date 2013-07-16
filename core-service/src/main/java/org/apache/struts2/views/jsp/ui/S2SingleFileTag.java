@@ -28,9 +28,10 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.struts2.components.TextField;
 
 /**
- * 基于下拉输入框样式的树形结构数据选取组件
- * 示例：<s2:treeinput name="parentName" label="父节点" hiddenName="parentId" 
-           treeDataUrl="/sys/menu!list" readonly="true" value="%{parent.title}" hiddenValue="%{parent.id}" />
+ * 单文件上传关联组件
+ * 基本原理：基于JQuery File Upload插件，选取文件后自动请求/sys/attachment-file!uploadSingle上传当前附件，
+ * 之后把创建的AttachmentFile数据的主键和文件名称信息带回表单输入元素，业务功能Controller代码需要自行处理回传的AttachmentFile对象关联逻辑
+ * 示例：<s2:singlefile name="templateFileId" labelValue="%{templateFile.fileRealName}" label="附件" value="%{templateFile.id}" />
  */
 public class S2SingleFileTag extends TextFieldTag {
 
@@ -40,7 +41,7 @@ public class S2SingleFileTag extends TextFieldTag {
      */
     protected String validator;
 
-    /** 附件名称显示字符串值 */
+    /** 附件名称显示字面值 */
     protected String labelValue;
 
     protected void populateParams() {
