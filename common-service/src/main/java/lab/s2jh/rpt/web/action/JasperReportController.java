@@ -16,6 +16,7 @@ import lab.s2jh.core.service.BaseService;
 import lab.s2jh.core.web.BaseController;
 import lab.s2jh.rpt.entity.ReportDef;
 import lab.s2jh.rpt.service.ReportDefService;
+import lab.s2jh.sys.entity.AttachmentFile;
 import net.sf.jasperreports.engine.JasperCompileManager;
 
 import org.apache.commons.lang3.StringUtils;
@@ -69,32 +70,49 @@ public class JasperReportController extends BaseController<ReportDef, String> {
     public String getLocation() {
         HttpServletRequest request = ServletActionContext.getRequest();
         String reportId = request.getParameter("report");
-        String delta = request.getParameter("delta");
         String rootPath = ServletActionContext.getServletContext().getRealPath("/");
-        new File(rootPath + JASPER_TEMPLATE_FILE_DIR).mkdirs();
-        String sourceJrxmlFile = JASPER_TEMPLATE_FILE_DIR + File.separator + reportId + ".jrxml";
         String targetJasperFilePath = JASPER_TEMPLATE_FILE_DIR + File.separator + reportId + ".jasper";
-        File targetJasperFile = new File(rootPath + targetJasperFilePath);
-        if (!targetJasperFile.exists()
-                || (StringUtils.isNotBlank(delta) && targetJasperFile.lastModified() < Long.valueOf(delta))) {
-            Resource resource = new ClassPathResource(sourceJrxmlFile);
-            try {
+        try {
+            File targetJasperFile = new File(rootPath + targetJasperFilePath);
+            ReportDef reportDef = reportDefService.findByCode(reportId);
+            AttachmentFile attachmentFile = reportDef.getTemplateFile();
+            boolean needUpdateJasperFile = false;
+            if (!targetJasperFile.exists()) {
+                needUpdateJasperFile = true;
+                new File(rootPath + JASPER_TEMPLATE_FILE_DIR).mkdirs();
+                if (!targetJasperFile.exists()) {
+                    targetJasperFile.createNewFile();
+                }
+            } else {
+                if (attachmentFile != null) {
+                    long compareTime = attachmentFile.getLastModifiedDate() != null ? attachmentFile
+                            .getLastModifiedDate().getTime() : attachmentFile.getCreatedDate().getTime();
+                    if (targetJasperFile.lastModified() < compareTime) {
+                        needUpdateJasperFile = true;
+                    }
+                }
+            }
+            if (needUpdateJasperFile) {
                 File targetJrxmlFile = new File(rootPath + JASPER_TEMPLATE_FILE_DIR + File.separator + reportId
                         + ".jrxml");
                 if (!targetJrxmlFile.exists()) {
                     targetJrxmlFile.createNewFile();
                 }
-                if (!targetJasperFile.exists()) {
-                    targetJasperFile.createNewFile();
+                if (attachmentFile != null) {
+                    FileCopyUtils.copy(attachmentFile.getFileContent(), targetJrxmlFile);
+                } else {
+                    String sourceJrxmlFile = JASPER_TEMPLATE_FILE_DIR + File.separator + reportId + ".jrxml";
+                    Resource resource = new ClassPathResource(sourceJrxmlFile);
+                    FileCopyUtils.copy(FileCopyUtils.copyToByteArray(resource.getInputStream()), targetJrxmlFile);
                 }
-                FileCopyUtils.copy(FileCopyUtils.copyToByteArray(resource.getInputStream()), targetJrxmlFile);
                 JasperCompileManager.compileReportToFile(targetJrxmlFile.getAbsolutePath(),
                         targetJasperFile.getAbsolutePath());
                 logger.info("Jasper file path: {}", targetJasperFile.getAbsolutePath());
-            } catch (Exception e) {
-                logger.error(e.getMessage(), e);
-                throw new WebException(e.getMessage(), e);
             }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            throw new WebException(e.getMessage(), e);
         }
         return targetJasperFilePath;
     }

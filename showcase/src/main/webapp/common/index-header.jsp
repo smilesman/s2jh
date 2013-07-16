@@ -20,9 +20,6 @@ var WEB_ROOT='<%= request.getContextPath() %>';
 
 <link rel="stylesheet" type="text/css" href="${base}/components/kindeditor/4.1.4/themes/default/default.css?_=${buildVersion}">
 
-<link rel="stylesheet" type="text/css" href="${base}/components/jquery.uploadify/3.2/uploadify.css?_=${buildVersion}">
-
-
 <link rel="stylesheet" type="text/css" href="${base}/components/jquery-ext/jquery-ui-dialog-ext.css?_=${buildVersion}">
 
 <!-- Pines Notify -->

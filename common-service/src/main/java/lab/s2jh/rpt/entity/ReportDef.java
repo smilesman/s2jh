@@ -9,7 +9,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -17,6 +19,7 @@ import javax.persistence.Transient;
 import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.entity.BaseEntity;
 import lab.s2jh.core.entity.annotation.EntityAutoCode;
+import lab.s2jh.sys.entity.AttachmentFile;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -58,6 +61,10 @@ public class ReportDef extends BaseEntity<String> {
     @MetaData(title = "禁用标识", description = "禁用全局不显示")
     @EntityAutoCode(order = 70, search = true)
     private Boolean disabled = Boolean.FALSE;
+
+    @MetaData(title = "模板文件ID")
+    @EntityAutoCode(order = 100, search = false)
+    private AttachmentFile templateFile;
 
     @MetaData(title = "关联的报表参数", description = "一般主要用于JasperReport类型报表,JXLS类型一般是在每个业务Action方法中特定组织参数对象给JXLS解析处理")
     private List<ReportParam> reportParameters;
@@ -190,6 +197,16 @@ public class ReportDef extends BaseEntity<String> {
 
     public void setReportDefR2Roles(List<ReportDefR2Role> reportDefR2Roles) {
         this.reportDefR2Roles = reportDefR2Roles;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "FILE_ID")
+    public AttachmentFile getTemplateFile() {
+        return templateFile;
+    }
+
+    public void setTemplateFile(AttachmentFile templateFile) {
+        this.templateFile = templateFile;
     }
 
     @Transient

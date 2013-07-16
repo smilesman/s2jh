@@ -14,6 +14,8 @@
 	<http pattern="/images/**" security="none" />
 	<http pattern="/resources/**" security="none" />
 	<http pattern="/components/**" security="none" />
+	<http pattern="/sys/attachment-file!upload**" security="none" />
+	<http pattern="/biz/sys/enum-value!data.json" security="none" />
 
 	<http access-denied-page="/common/errors.jsp">
 		<form-login login-page="/pub/signin"

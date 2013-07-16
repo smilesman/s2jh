@@ -15,7 +15,9 @@ import lab.s2jh.core.web.view.OperationResult;
 import lab.s2jh.rpt.entity.ReportDef;
 import lab.s2jh.rpt.entity.ReportDefR2Role;
 import lab.s2jh.rpt.service.ReportDefService;
+import lab.s2jh.sys.service.AttachmentFileService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.rest.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -29,6 +31,9 @@ public class ReportDefController extends BaseController<ReportDef, String> {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private AttachmentFileService attachmentFileService;
 
     @Override
     protected BaseService<ReportDef, String> getEntityService() {
@@ -50,12 +55,22 @@ public class ReportDefController extends BaseController<ReportDef, String> {
     @Override
     @MetaData(title = "创建")
     public HttpHeaders doCreate() {
+        String templateFileId = this.getParameter("templateFileId");
+        if (StringUtils.isNotBlank(templateFileId)) {
+            bindingEntity.setTemplateFile(attachmentFileService.findOne(templateFileId));
+        }
         return super.doCreate();
     }
 
     @Override
     @MetaData(title = "更新")
     public HttpHeaders doUpdate() {
+        String templateFileId = this.getParameter("templateFileId");
+        if (StringUtils.isNotBlank(templateFileId)) {
+            bindingEntity.setTemplateFile(attachmentFileService.findOne(templateFileId));
+        } else {
+            bindingEntity.setTemplateFile(null);
+        }
         return super.doUpdate();
     }
 

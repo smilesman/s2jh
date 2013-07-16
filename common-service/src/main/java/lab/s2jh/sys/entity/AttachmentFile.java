@@ -1,10 +1,11 @@
 package lab.s2jh.sys.entity;
 
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -15,7 +16,6 @@ import lab.s2jh.core.entity.BaseEntity;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,9 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @MetaData(title = "附件文件数据")
 public class AttachmentFile extends BaseEntity<String> {
-
-    /** 文件存储的ID，为了避免中文乱码问题，如果文件内容需要存储到文件系统，一般取fileId+fileExtension作为物理存储名称 */
-    private String fileId;
 
     /** 附件上传文件名称 */
     private String fileRealName;
@@ -45,32 +42,26 @@ public class AttachmentFile extends BaseEntity<String> {
 
     /** 文件数据 */
     private byte[] fileContent;
-    
+
     private String entityClassName;
-    
+
     private String entityId;
+
+    private Date lastTouchTime;
+
+    private String lastTouchBy;
 
     private String id;
 
+    /** 直接以文件byte数据计算的MD5码作为唯一标识 */
     @Id
     @Column(length = 40)
-    @GeneratedValue(generator = "hibernate-uuid")
-    @GenericGenerator(name = "hibernate-uuid", strategy = "uuid")
     public String getId() {
         return id;
     }
 
     public void setId(final String id) {
         this.id = id;
-    }
-
-    @Column(length = 128, nullable = false, unique = true)
-    public String getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
     }
 
     @Column(length = 500, nullable = false)
@@ -152,6 +143,22 @@ public class AttachmentFile extends BaseEntity<String> {
 
     public void setEntityId(String entityId) {
         this.entityId = entityId;
+    }
+
+    public Date getLastTouchTime() {
+        return lastTouchTime;
+    }
+
+    public void setLastTouchTime(Date lastTouchTime) {
+        this.lastTouchTime = lastTouchTime;
+    }
+
+    public String getLastTouchBy() {
+        return lastTouchBy;
+    }
+
+    public void setLastTouchBy(String lastTouchBy) {
+        this.lastTouchBy = lastTouchBy;
     }
 
 }

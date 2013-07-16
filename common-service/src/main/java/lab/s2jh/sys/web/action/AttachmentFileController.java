@@ -3,16 +3,20 @@ package lab.s2jh.sys.web.action;
 import java.io.File;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.exception.WebException;
 import lab.s2jh.core.service.BaseService;
 import lab.s2jh.core.web.BaseController;
+import lab.s2jh.core.web.util.ServletUtils;
 import lab.s2jh.core.web.view.OperationResult;
 import lab.s2jh.sys.entity.AttachmentFile;
 import lab.s2jh.sys.service.AttachmentFileService;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.rest.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
@@ -77,12 +81,16 @@ public class AttachmentFileController extends BaseController<AttachmentFile, Str
             Assert.isTrue(attachments.length == 1, "上传文件数据不合法");
             File attachment = attachments[0];
             byte[] fileBytes = FileUtils.readFileToByteArray(attachment);
-            AttachmentFile entity = new AttachmentFile();
-            entity.setFileId(DigestUtils.md5DigestAsHex(fileBytes));
+            String md5 = DigestUtils.md5DigestAsHex(fileBytes);
+            AttachmentFile entity = attachmentFileService.findOne(md5);
+            if (entity == null) {
+                entity = new AttachmentFile();
+                entity.setId(md5);
+                entity.setFileContent(fileBytes);
+            }
             entity.setFileRealName(attachmentsFileName[0]);
             entity.setFileLength((int) attachment.length());
             entity.setFileType(attachmentsContentType[0]);
-            entity.setFileContent(fileBytes);
             entity.setFileExtension(StringUtils.substringAfterLast(entity.getFileRealName(), "."));
             attachmentFileService.save(entity);
             setModel(OperationResult.buildSuccessResult("文件上传操作成功", entity));
@@ -101,7 +109,7 @@ public class AttachmentFileController extends BaseController<AttachmentFile, Str
                     File attachment = attachments[i];
                     byte[] fileBytes = FileUtils.readFileToByteArray(attachment);
                     AttachmentFile entity = new AttachmentFile();
-                    entity.setFileId(DigestUtils.md5DigestAsHex(fileBytes));
+                    entity.setId(DigestUtils.md5DigestAsHex(fileBytes));
                     entity.setFileRealName(attachmentsFileName[i]);
                     entity.setFileLength((int) attachment.length());
                     entity.setFileType(attachmentsContentType[i]);
@@ -118,5 +126,14 @@ public class AttachmentFileController extends BaseController<AttachmentFile, Str
         } catch (Exception e) {
             throw new WebException(e.getMessage(), e);
         }
+    }
+
+    @MetaData(title = "文件下载")
+    public void download() {
+        AttachmentFile entity = attachmentFileService.findOne(this.getRequiredParameter("id"));
+        HttpServletResponse response = ServletActionContext.getResponse();
+        ServletUtils.setFileDownloadHeader(response, entity.getFileRealName());
+        response.setContentType(entity.getFileType());
+        ServletUtils.renderFileDownload(response, entity.getFileContent());
     }
 }
