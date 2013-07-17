@@ -96,12 +96,10 @@
                     url : "${base}${model_path}/${entity_name_field}!doDelete"
                 },
                 addRow : {
-                    url : "${base}${model_path}/${entity_name_field}!inputTabs",
-                    toTab : "#${entity_name_uncapitalize}IndexTabs"
+                    url : "${base}${model_path}/${entity_name_field}!inputTabs"
                 },
                 editRow : {
                     url : "${base}${model_path}/${entity_name_field}!inputTabs",
-                    toTab : "#${entity_name_uncapitalize}IndexTabs",
                     labelCol : 'TODO'
                 },                
                 caption:"${model_title}列表"
