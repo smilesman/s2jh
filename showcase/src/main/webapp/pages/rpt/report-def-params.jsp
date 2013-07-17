@@ -39,8 +39,7 @@
                 name : 'type.title',
                 index : 'type',
                 width : 80,
-                fixed : true,
-                align : 'center'
+                align : 'left'
             }, {
                 name : 'validateRules',
                 align : 'left'
