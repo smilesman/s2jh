@@ -17,6 +17,7 @@ import lab.s2jh.rpt.entity.ReportDefR2Role;
 import lab.s2jh.rpt.service.ReportDefService;
 import lab.s2jh.sys.service.AttachmentFileService;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.rest.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +46,10 @@ public class ReportDefController extends BaseController<ReportDef, String> {
         // According to URL access control logic
     }
 
-    @MetaData(title = "[TODO方法作用]")
-    public HttpHeaders todo() {
-        //TODO
-        setModel(OperationResult.buildSuccessResult("TODO操作完成"));
-        return buildDefaultHttpHeaders();
+    @Override
+    public void prepareCreate() {
+        super.prepareCreate();
+        bindingEntity.setCode("RPT_" + RandomStringUtils.randomNumeric(6));
     }
 
     @Override

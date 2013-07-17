@@ -8,7 +8,6 @@ import lab.s2jh.rpt.entity.ReportParam;
 import lab.s2jh.rpt.service.ReportDefService;
 import lab.s2jh.rpt.service.ReportParamService;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.struts2.rest.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -63,10 +62,10 @@ public class ReportParamController extends BaseController<ReportParam, String> {
     public HttpHeaders findByPage() {
         return super.findByPage();
     }
-    
+
     @Override
     public void prepareCreate() {
         super.prepareCreate();
-        bindingEntity.setCode("RPT_" + RandomStringUtils.randomNumeric(6));
+        bindingEntity.setCode("RPT_");
     }
 }
