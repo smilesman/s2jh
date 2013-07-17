@@ -10,6 +10,7 @@ import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.entity.BaseEntity;
 import lab.s2jh.core.entity.annotation.EntityAutoCode;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 @MappedSuperclass
@@ -26,6 +27,10 @@ public abstract class DynamicParameterDef extends BaseEntity<String> {
     @MetaData(title = "描述")
     @EntityAutoCode(listShow = false)
     private String description;
+
+    @MetaData(title = "必填标识")
+    @EntityAutoCode(order = 30, search = true)
+    private Boolean required = Boolean.FALSE;
 
     @MetaData(title = "禁用标识", description = "禁用项全局不显示")
     @EntityAutoCode(order = 40, search = true)
@@ -80,6 +85,14 @@ public abstract class DynamicParameterDef extends BaseEntity<String> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
     }
 
     public Boolean getDisabled() {
@@ -146,7 +159,6 @@ public abstract class DynamicParameterDef extends BaseEntity<String> {
     @Transient
     public String getFullValidateRules() {
         StringBuilder sb = new StringBuilder();
-        sb.append("{");
         switch (this.getType()) {
         case DATE:
             sb.append("date:true,");
@@ -162,10 +174,17 @@ public abstract class DynamicParameterDef extends BaseEntity<String> {
             break;
         default:
         }
+        if (BooleanUtils.toBoolean(this.required)) {
+            sb.append("required:true,");
+        }
         if (StringUtils.isNotBlank(this.getValidateRules())) {
             sb.append(this.getValidateRules() + ",");
         }
-        return sb.substring(0, sb.length() - 1) + "}";
+        if (sb.length() == 0) {
+            return "";
+        } else {
+            return "{" + sb.substring(0, sb.length() - 1) + "}";
+        }
     }
 
 }

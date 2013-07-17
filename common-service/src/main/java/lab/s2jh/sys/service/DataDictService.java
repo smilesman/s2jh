@@ -26,4 +26,8 @@ public class DataDictService extends BaseService<DataDict,String>{
     public List<String> findDistinctCategories(){
         return dataDictDao.findDistinctCategories();
     }
+    
+    public List<DataDict> findByCategory(String category){
+        return dataDictDao.findByCategory(category);
+    }
 }

@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +18,14 @@ import lab.s2jh.core.web.BaseController;
 import lab.s2jh.rpt.entity.ReportDef;
 import lab.s2jh.rpt.service.ReportDefService;
 import lab.s2jh.sys.entity.AttachmentFile;
+import lab.s2jh.sys.entity.DataDict;
+import lab.s2jh.sys.service.DataDictService;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import ognl.Ognl;
+import ognl.OgnlException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.rest.HttpHeaders;
 import org.apache.struts2.views.jasperreports.JasperReportConstants;
@@ -28,6 +34,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.util.FileCopyUtils;
 
 import com.google.common.collect.Maps;
@@ -43,6 +51,9 @@ public class JasperReportController extends BaseController<ReportDef, String> {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private DataDictService dataDictService;
 
     public Connection getConnection() {
         try {
@@ -201,4 +212,78 @@ public class JasperReportController extends BaseController<ReportDef, String> {
         return buildDefaultHttpHeaders("show");
     }
 
+    /**
+     * 查询数据字典类别对应数据集合Map
+     * @param category 数据字典类别代码
+     * @return
+     */
+    public Map<String, String> getDataDictKeyValueMap(String category) {
+        Map<String, String> dataMap = new LinkedHashMap<String, String>();
+        List<DataDict> dataDicts = dataDictService.findByCategory(category);
+        for (DataDict dataDict : dataDicts) {
+            dataMap.put(dataDict.getKey1Value(), dataDict.getData1Value());
+        }
+        return dataMap;
+    }
+
+    /**
+     * 根据SQL查询对应数据集合Map
+     * @param sql 返回Key-Value形式的SQL语句
+     * @return
+     */
+    public Map<String, String> getSQLKeyValueMap(String sql) {
+        Map<String, String> dataMap = new LinkedHashMap<String, String>();
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
+            while (row.next()) {
+                dataMap.put(row.getString(1), row.getString(2));
+            }
+        } catch (Exception e) {
+            logger.error("SQL parse error: " + sql, e);
+            dataMap.put("ERROR", "[系统处理出现异常]");
+        }
+        return dataMap;
+    }
+
+    /**
+     * 根据Enum Class字符串获取对应数据集合Map
+     * @param enumClass Enum Class对应的完整类路径
+     * @return
+     */
+    @SuppressWarnings("rawtypes")
+    public Map<String, String> getEnumKeyValueMap(String enumClass) {
+        Map<String, String> dataMap = new LinkedHashMap<String, String>();
+        try {
+            Class clazz = Class.forName(enumClass);
+            Object[] items = clazz.getEnumConstants();
+            for (Object enumItem : items) {
+                String value = (String) MethodUtils.invokeMethod(enumItem, "getLabel", null);
+                dataMap.put(String.valueOf(enumItem), value);
+            }
+        } catch (Exception e) {
+            //由于此异常出现在JSP页面解析过程，无法转向到全局的errors错误显示页面，因此采用logger记录error信息
+            logger.error("Enum parse error: " + enumClass, e);
+            dataMap.put("ERROR", "[系统处理出现异常]");
+        }
+        return dataMap;
+    }
+
+    /**
+     * 将OGNL字符串转化为对应数据集合Map
+     * @param ognl OGNL语法字符串，如：#{'A':'ClassA','B':'ClassB'}
+     * @return
+     */
+    @SuppressWarnings("rawtypes")
+    public Map getOGNLKeyValueMap(String ognl) throws OgnlException {
+        try {
+            return (Map) Ognl.getValue(ognl, null);
+        } catch (Exception e) {
+            //由于此异常出现在JSP页面解析过程，无法转向到全局的errors错误显示页面，因此采用logger记录error信息
+            logger.error("Ognl parse error: " + ognl, e);
+            Map dataMap = new LinkedHashMap();
+            dataMap.put("ERROR", "[系统处理出现异常]");
+            return dataMap;
+        }
+    }
 }

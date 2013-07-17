@@ -34,7 +34,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<s2:radio name="disabled" list="#application.booleanLabelMap" label="禁用标识" />
+					<s2:radio name="required" list="#application.booleanLabelMap" label="必填项" />
 				</div>
 			</div>
 			<div class="row-fluid">
@@ -65,6 +65,11 @@
 			<div class="row-fluid">
 				<div class="span6">
 					<s2:textfield name="orderRank" label="排序号" />
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span6">
+					<s2:radio name="disabled" list="#application.booleanLabelMap" label="禁用标识" />
 				</div>
 			</div>
 			<div class="row-fluid">

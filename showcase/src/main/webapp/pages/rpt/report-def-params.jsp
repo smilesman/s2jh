@@ -4,7 +4,7 @@
     $(function() {
         $("#reportParamListDiv<s:property value='#parameters.id'/>").grid({
             url : "${base}/rpt/report-param!findByPage?search['EQ_reportDef.id']=<s:property value='%{#parameters.id}'/>",
-            colNames : [ '操作', '代码', '名称', '禁用标识', '参数类型', '前端UI校验规则', '缺省参数值', '是否允许多选 ', '集合数据源 ', '排序号', '创建时间', '版本号' ],
+            colNames : [ '操作', '代码', '名称', '必填项', '禁用标识', '参数类型', '前端UI校验规则', '缺省参数值', '是否允许多选 ', '集合数据源 ', '排序号', '创建时间', '版本号' ],
             colModel : [ {
                 name : 'operation',
                 align : 'center',
@@ -29,6 +29,9 @@
             }, {
                 name : 'title',
                 align : 'left'
+            }, {
+                name : 'required',
+                formatter : booleanFormatter
             }, {
                 name : 'disabled',
                 formatter : booleanFormatter
