@@ -219,9 +219,14 @@ public class JasperReportController extends BaseController<ReportDef, String> {
      */
     public Map<String, String> getDataDictKeyValueMap(String category) {
         Map<String, String> dataMap = new LinkedHashMap<String, String>();
-        List<DataDict> dataDicts = dataDictService.findByCategory(category);
-        for (DataDict dataDict : dataDicts) {
-            dataMap.put(dataDict.getKey1Value(), dataDict.getData1Value());
+        try {
+            List<DataDict> dataDicts = dataDictService.findByCategory(category);
+            for (DataDict dataDict : dataDicts) {
+                dataMap.put(dataDict.getKey1Value(), dataDict.getData1Value());
+            }
+        } catch (Exception e) {
+            logger.error("DataDict parse error: " + category, e);
+            dataMap.put("ERROR", "[系统处理出现异常]");
         }
         return dataMap;
     }
@@ -234,10 +239,12 @@ public class JasperReportController extends BaseController<ReportDef, String> {
     public Map<String, String> getSQLKeyValueMap(String sql) {
         Map<String, String> dataMap = new LinkedHashMap<String, String>();
         try {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-            SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
-            while (row.next()) {
-                dataMap.put(row.getString(1), row.getString(2));
+            if (StringUtils.isNotBlank(sql)) {
+                JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+                SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
+                while (row.next()) {
+                    dataMap.put(row.getString(1), row.getString(2));
+                }
             }
         } catch (Exception e) {
             logger.error("SQL parse error: " + sql, e);
@@ -255,11 +262,13 @@ public class JasperReportController extends BaseController<ReportDef, String> {
     public Map<String, String> getEnumKeyValueMap(String enumClass) {
         Map<String, String> dataMap = new LinkedHashMap<String, String>();
         try {
-            Class clazz = Class.forName(enumClass);
-            Object[] items = clazz.getEnumConstants();
-            for (Object enumItem : items) {
-                String value = (String) MethodUtils.invokeMethod(enumItem, "getLabel", null);
-                dataMap.put(String.valueOf(enumItem), value);
+            if (StringUtils.isNotBlank(enumClass)) {
+                Class clazz = Class.forName(enumClass);
+                Object[] items = clazz.getEnumConstants();
+                for (Object enumItem : items) {
+                    String value = (String) MethodUtils.invokeMethod(enumItem, "getLabel", null);
+                    dataMap.put(String.valueOf(enumItem), value);
+                }
             }
         } catch (Exception e) {
             //由于此异常出现在JSP页面解析过程，无法转向到全局的errors错误显示页面，因此采用logger记录error信息
@@ -276,14 +285,16 @@ public class JasperReportController extends BaseController<ReportDef, String> {
      */
     @SuppressWarnings("rawtypes")
     public Map getOGNLKeyValueMap(String ognl) throws OgnlException {
+        Map dataMap = new LinkedHashMap();
         try {
-            return (Map) Ognl.getValue(ognl, null);
+            if (StringUtils.isNotBlank(ognl)) {
+                dataMap = (Map) Ognl.getValue(ognl, null);
+            }
         } catch (Exception e) {
             //由于此异常出现在JSP页面解析过程，无法转向到全局的errors错误显示页面，因此采用logger记录error信息
             logger.error("Ognl parse error: " + ognl, e);
-            Map dataMap = new LinkedHashMap();
             dataMap.put("ERROR", "[系统处理出现异常]");
-            return dataMap;
         }
+        return dataMap;
     }
 }
