@@ -23,7 +23,7 @@
 							</button>
 							<div class="btn-group pull-right">
 								<button type="button" class="btn" title="高级查询"
-									onclick="$('#userListDiv').jqGrid('advSearch');">
+									onclick="$('#dataDictListDiv').jqGrid('advSearch');">
 									<i class="icon-search"></i>
 								</button>
 							</div>
@@ -42,7 +42,7 @@
         $(function() {
             $("#dataDictListDiv").grid({
                 url : "${base}/sys/data-dict!findByPage",
-                colNames : [ '操作', '系统标识', '分类', 'Key1定义', 'Key2定义', '数据1设定', '数据2设定', '禁用标识', '排序号', '创建时间', '版本号' ],
+                colNames : [ '操作', '分类', 'Key1定义', '数据1设定', '禁用标识', '排序号', '创建时间', '版本号' ],
                 colModel : [ {
                     name : 'operation',
                     align : 'center',
@@ -50,7 +50,7 @@
                     sortable : false,
                     hidedlg : true,
                     search : false,
-                    width : 25,
+                    width : 40,
                     formatter : function(cellValue, options, rowdata, action) {
                         return $.jgrid.buildButtons([ {
                             title : "编辑",
@@ -63,70 +63,57 @@
                         } ]);
                     }
                 }, {
-                    name : 'displayId',
-                    align : 'center',
-                    hidedlg : true,
-                    width : 100
-                }, {
                     name : 'category',
+                    sortable : false,
                     align : 'left'
                 }, {
                     name : 'key1Value',
                     align : 'left'
                 }, {
-                    name : 'key2Value',
-                    align : 'left'
-                }, {
                     name : 'data1Value',
                     align : 'left'
                 }, {
-                    name : 'data2Value',
-                    align : 'left'
-                }, {
                     name : 'disabled',
-                    width : 60,
-                    fixed : true,
-                    formatter : booleanFormatter,
-                    align : 'center'
+                    formatter : booleanFormatter
                 }, {
                     name : 'orderRank',
-                    width : 60,
-                    fixed : true,
-                    align : 'center'
+                    sorttype : 'number'
                 }, {
                     name : 'createdDate',
-                    width : 120,
-                    fixed : true,
-                    hidden : true,
-                    align : 'center'
+                    sorttype : 'date',
+                    hidden : true
                 }, {
                     name : 'version',
                     hidden : true,
                     hidedlg : true
                 } ],
-                ondblClickEnabledRow : function(rowid, iRow, iCol, e, rowdata) {
-                    $("#dataDictIndexTabs").tabs("add", '${base}/sys/data-dict!inputTabs?id=' + rowid, "编辑-" + eraseCellValueLink(rowdata.displayId));
+                delRow : {
+                    url : "${base}/sys/data-dict!doDelete"
                 },
+                addRow : {
+                    url : "${base}/sys/data-dict!inputTabs"
+                },
+                editRow : {
+                    url : "${base}/sys/data-dict!inputTabs",
+                    labelCol : 'key1Value'
+                },
+                grouping : true,
+                groupingView : {
+                    groupField : [ 'category' ],
+                    groupOrder : [ 'asc' ],
+                    groupCollapse : false
+                },
+                sortorder : "desc",
+                sortname : "orderRank",
                 caption : "数据字典列表"
             });
 
             $("#dataDictAddBtn").click(function() {
-                $("#dataDictIndexTabs").tabs("add", "${base}/sys/data-dict!inputTabs", "添加-新数据字典");
+                $("#dataDictListDiv").jqGrid('addRow');
             });
 
             $("#dataDictDeleteBtn").click(function() {
-                if (rowids = $("#dataDictListDiv").jqGrid("getAtLeastOneSelectedItem")) {
-                    $.ajaxPostURL({
-                        url : '${base}/sys/data-dict!doDelete',
-                        data : {
-                            id : rowids
-                        },
-                        confirm : '确认删除所选行项？',
-                        successCallback : function(response) {
-                            $("#dataDictListDiv").jqGrid("refresh");
-                        }
-                    });
-                }
+                $("#dataDictListDiv").jqGrid('delRow');
             });
         });
     </script>

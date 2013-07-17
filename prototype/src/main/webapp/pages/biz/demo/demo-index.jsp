@@ -83,12 +83,10 @@
                     url : "${base}/biz/demo/demo!doDelete"
                 },
                 addRow : {
-                    url : "${base}/biz/demo/demo!inputTabs",
-                    toTab : "#demoIndexTabs"
+                    url : "${base}/biz/demo/demo!inputTabs"
                 },
                 editRow : {
                     url : "${base}/biz/demo/demo!inputTabs",
-                    toTab : "#demoIndexTabs",
                     labelCol : 'TODO'
                 },                
                 caption:"演示实体列表"

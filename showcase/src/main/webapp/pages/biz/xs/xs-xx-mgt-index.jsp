@@ -198,12 +198,10 @@
                         url : "${base}/biz/xs/xs-xx-mgt!doDelete"
                     },
                     addRow : {
-                        url : "${base}/biz/xs/xs-xx-mgt!inputTabs",
-                        toTab : "#xsJbxxIndexTabs"
+                        url : "${base}/biz/xs/xs-xx-mgt!inputTabs"
                     },
                     editRow : {
                         url : "${base}/biz/xs/xs-xx-mgt!inputTabs",
-                        toTab : "#xsJbxxIndexTabs",
                         labelCol : 'xm'
                     },
                     caption : "学生列表"

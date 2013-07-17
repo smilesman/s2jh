@@ -112,12 +112,10 @@
                     url : "${base}/sys/menu!doDelete"
                 },
                 addRow : {
-                    url : "${base}/sys/menu!inputTabs",
-                    toTab : "#menuIndexTabs"
+                    url : "${base}/sys/menu!inputTabs"
                 },
                 editRow : {
                     url : "${base}/sys/menu!inputTabs",
-                    toTab : "#menuIndexTabs",
                     labelCol : 'title'
                 },
                 treeGrid : true,

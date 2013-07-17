@@ -94,12 +94,10 @@
                     url : "${base}/auth/user!doDelete"
                 },
                 addRow : {
-                    url : "${base}/auth/user!inputTabs",
-                    toTab : "#userIndexTabs"
+                    url : "${base}/auth/user!inputTabs"
                 },
                 editRow : {
                     url : "${base}/auth/user!inputTabs",
-                    toTab : "#userIndexTabs",
                     labelCol : 'signinid'
                 },
                 caption : "用户列表"

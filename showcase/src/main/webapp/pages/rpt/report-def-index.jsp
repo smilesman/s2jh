@@ -102,12 +102,10 @@
                     url : "${base}/rpt/report-def!doDelete"
                 },
                 addRow : {
-                    url : "${base}/rpt/report-def!inputTabs",
-                    toTab : "#reportDefIndexTabs"
+                    url : "${base}/rpt/report-def!inputTabs"
                 },
                 editRow : {
                     url : "${base}/rpt/report-def!inputTabs",
-                    toTab : "#reportDefIndexTabs",
                     labelCol : 'title'
                 },                
                 grouping : true,

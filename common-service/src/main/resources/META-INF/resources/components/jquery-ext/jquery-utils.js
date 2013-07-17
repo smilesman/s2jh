@@ -43,20 +43,27 @@ function AddOrReplaceUrlParameter(url, paramname, paramvalue) {
     return url;
 }
 
-function toggle_multi_select(field,btn) {
+function toggle_multi_select(field, btn) {
     select = $(field);
-    if (select.attr("multiple") == true || select.attr("multiple")=="multiple") {
-        select.attr("multiple",false);
-        if(btn){
+    if (select.attr("multiple") == true || select.attr("multiple") == "multiple") {
+        select.attr("multiple", false);
+        if (btn) {
             $(btn).find("i").removeClass("icon-minus-sign");
             $(btn).find("i").toggleClass("icon-plus-sign");
         }
     } else {
-        select.attr("multiple",true);
-        if(btn){
+        select.attr("multiple", true);
+        if (btn) {
             $(btn).find("i").removeClass("icon-plus-sign");
             $(btn).find("i").toggleClass("icon-minus-sign");
         }
+    }
+}
+
+function fileDownload(id) {
+    alert(id);
+    if (id && id != '') {
+        window.open(WEB_ROOT + "/sys/attachment-file!download?id=" + id);
     }
 }
 
@@ -131,7 +138,7 @@ function toggle_multi_select(field,btn) {
         $("div.ui-jqgrid:visible").each(function() {
             var newW = $(this).parent().width();
             if (newW) {
-                $("#" + $(this).attr("id").substr(5)).jqGrid("setGridWidth", newW - 2,false);
+                $("#" + $(this).attr("id").substr(5)).jqGrid("setGridWidth", newW - 2, false);
             }
         });
     }
@@ -256,7 +263,7 @@ function toggle_multi_select(field,btn) {
             target.closest('form').find('div.advanceSearchDiv').hide();
         }
     }
-    
+
     $.fn.findFormElements = function() {
         return this.find(":input[type='text'], :input[type='password'], :input[type='radio'], :input[type='checkbox'], :input[type='file'], select , textarea");
     };

@@ -108,12 +108,10 @@
                     url : "${base}/biz/sys/region-code!doDelete"
                 },
                 addRow : {
-                    url : "${base}/biz/sys/region-code!inputTabs",
-                    toTab : "#regionCodeIndexTabs"
+                    url : "${base}/biz/sys/region-code!inputTabs"
                 },
                 editRow : {
                     url : "${base}/biz/sys/region-code!inputTabs",
-                    toTab : "#regionCodeIndexTabs",
                     labelCol : 'regionCode'
                 },
                 sortorder : "asc",

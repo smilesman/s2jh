@@ -155,12 +155,10 @@
                             url : "${base}/biz/xx/xx-jcxx!doDelete"
                         },
                         addRow : {
-                            url : "${base}/biz/xx/xx-jcxx!inputTabs",
-                            toTab : "#xxJcxxIndexTabs"
+                            url : "${base}/biz/xx/xx-jcxx!inputTabs"
                         },
                         editRow : {
                             url : "${base}/biz/xx/xx-jcxx!inputTabs",
-                            toTab : "#xxJcxxIndexTabs",
                             labelCol : 'xxmc'
                         },
                         ondblClickEnabledRow : function(rowid, iRow, iCol, e, rowdata) {

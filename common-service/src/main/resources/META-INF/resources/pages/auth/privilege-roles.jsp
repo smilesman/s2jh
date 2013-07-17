@@ -28,8 +28,7 @@
             }, {
                 name : 'aclType',
                 align : 'center',
-                width : 60,
-                fixed : true
+                width : 60
             }, {
                 name : 'title',
                 align : 'left'

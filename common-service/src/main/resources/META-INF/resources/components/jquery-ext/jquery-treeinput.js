@@ -1,7 +1,7 @@
 (function($) {
     $.widget("ui.treeinput", {
         options : {
-
+            hiddenValue: ''
         },
         _create : function() {
 
@@ -14,13 +14,13 @@
 
             var hiddenElement = null;
             if (self.options.hiddenName && self.options.hiddenName != '') {
-                hiddenElement = $('<input name="' + self.options.hiddenName + '" type="hidden"/>');
+                hiddenElement = $('<input name="' + self.options.hiddenName + ' value="' + self.options.hiddenValue + '"  type="hidden"/>');
                 hiddenElement.appendTo(divContaner);
             }
 
-            var container = $('<div class="alert alert-info" style="display: none; position: absolute;"/>');
+            var container = $('<div class="alert alert-info" style="display: none; position: absolute;margin: 0; padding: 0"/>');
 
-            var closer = $('<button type="button" class="close" data-dismiss="alert">X</button>').appendTo(container);
+            var closer = $('<button type="button" class="close" data-dismiss="alert" style="right: 5px;top: 5px">X</button>').appendTo(container);
 
             closer.click(function() {
                 container.fadeOut('fast');
@@ -29,12 +29,22 @@
             var tree = $('<ul id="tree_' + ('' + Math.random()).slice(-6) + '" class="ztree" style="margin-top: 0; width: 160px;"></ul>').appendTo(container);
 
             this.button = $('<span class="add-on"><i class="icon-arrow-down"></i></span>').attr("tabIndex", -1).attr('title', "点击选取").appendTo(divContaner).click(function() {
-                var offset = el.offset();
-                $(container).css({
-                    left : offset.left + "px",
-                    top : offset.top + el.outerHeight() + "px"
-                }).toggle("fast");
+                
                 if ($.trim(tree.html()) == '') {
+                    var element=el[0];
+                    var actualLeft = element.offsetLeft;
+                    var actualTop = element.offsetTop;
+                    var current = element.offsetParent;
+                    while (current !== null){
+                                          　　　　　　actualLeft += current.offsetLeft;
+                                          　　　　　　current = current.offsetParent;
+                                          　　　　}
+
+                    $(container).css({
+                        left : actualLeft-1,
+                        top : actualTop + el.outerHeight(),
+                        width: element.width
+                    });
                     $.getJSON(self.options.url, function(data) {
                         $.fn.zTree.init(tree, {
                             view : {
@@ -77,6 +87,7 @@
                         }, data);
                     });
                 }
+                $(container).toggle("fast");
                 return false;
             });
 

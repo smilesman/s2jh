@@ -103,12 +103,10 @@
                     url : "${base}/auth/role!doDelete"
                 },
                 addRow : {
-                    url : "${base}/auth/role!inputTabs",
-                    toTab : "#roleIndexTabs"
+                    url : "${base}/auth/role!inputTabs"
                 },
                 editRow : {
                     url : "${base}/auth/role!inputTabs",
-                    toTab : "#roleIndexTabs",
                     labelCol : 'code'
                 },
                 caption : "角色列表"

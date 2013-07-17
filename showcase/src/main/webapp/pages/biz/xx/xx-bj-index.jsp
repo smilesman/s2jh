@@ -80,12 +80,10 @@
                 url : "${base}/biz/xx/xx-bj!doDelete"
             },
             addRow : {
-                url : "${base}/biz/xx/xx-bj!inputTabs",
-                toTab : "#xxBjIndexTabs"
+                url : "${base}/biz/xx/xx-bj!inputTabs"
             },
             editRow : {
                 url : "${base}/biz/xx/xx-bj!inputTabs",
-                toTab : "#xxBjIndexTabs",
                 labelCol : 'bjmc'
             },
             caption : "学校班级列表"

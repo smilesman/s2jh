@@ -95,12 +95,10 @@
                     url : "${base}/auth/privilege!doDelete"
                 },
                 addRow : {
-                    url : "${base}/auth/privilege!inputTabs",
-                    toTab : "#privilegeIndexTabs"
+                    url : "${base}/auth/privilege!inputTabs"
                 },
                 editRow : {
                     url : "${base}/auth/privilege!inputTabs",
-                    toTab : "#privilegeIndexTabs",
                     labelCol : 'title'
                 },
                 grouping : true,
