@@ -253,8 +253,8 @@
                         onClickButton : function() {
                             if (pin.addRow.toTab) {
                                 $(pin.addRow.toTab).tabs("add", pin.addRow.url, pin.addRow.title);
-                            }else{
-                                var tab= $(this).closest("div.ui-tabs");
+                            } else {
+                                var tab = $(this).closest("div.ui-tabs");
                                 tab.tabs("add", pin.addRow.url, pin.addRow.title);
                             }
                         }
@@ -369,7 +369,12 @@
                 if ($(label).text() != '') {
                     label = labelText
                 }
-                $($t.p.editRow.toTab).tabs("add", $t.p.editRow.url + "?id=" + rowid, "编辑-" + label);
+                if ($t.p.editRow.toTab) {
+                    $($t.p.editRow.toTab).tabs("add", $t.p.editRow.url + ($t.p.editRow.url.indexOf("?") > 0 ? "&" : "?") + "id=" + rowid, "编辑-" + label);
+                } else {
+                    var tab = $(this).closest("div.ui-tabs");
+                    tab.tabs("add", $t.p.editRow.url + ($t.p.editRow.url.indexOf("?") > 0 ? "&" : "?") + "id=" + rowid, "编辑-" + label);
+                }
             })
         },
 

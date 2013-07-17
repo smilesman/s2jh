@@ -70,7 +70,7 @@
                 url : "${base}/rpt/report-param!doDelete"
             },
             addRow : {
-                url : "${base}/rpt/report-param!update?reportDefId=<s:property value='%{#parameters.id}'/>"
+                url : "${base}/rpt/report-param!create?reportDefId=<s:property value='%{#parameters.id}'/>"
             },
             editRow : {
                 url : "${base}/rpt/report-param!update?reportDefId=<s:property value='%{#parameters.id}'/>",
