@@ -4,16 +4,6 @@
 <div class="container-fluid data-view">
 	<div class="well form-horizontal">
 		<div class="row-fluid">
-			<div class="span12">
-				<div class="control-group">
-					<label class="control-label" for="aclType">类别</label>
-					<div class="controls">
-						<s:property value="aclTypeMap[aclType]" />
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row-fluid">
 			<div class="span6">
 				<div class="control-group">
 					<label class="control-label" for="code">代码</label>

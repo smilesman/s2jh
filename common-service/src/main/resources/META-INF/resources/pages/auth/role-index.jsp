@@ -42,7 +42,7 @@
         $(function() {
             $("#roleListDiv").grid({
                 url : '${base}/auth/role!findByPage',
-                colNames : [ '操作', '类别', '代码', '名称', '禁用标识', '锁定标识', '创建时间', '版本号' ],
+                colNames : [ '操作', '代码', '名称', '禁用标识', '锁定标识', '创建时间', '版本号' ],
                 colModel : [ {
                     name : 'operation',
                     align : 'center',
@@ -58,10 +58,6 @@
                             onclick : "$('#" + $(this).attr("id") + "').jqGrid('editRow','" + rowdata.id + "')"
                         } ]);
                     }
-                }, {
-                    name : 'aclType',
-                    align : 'center',
-                    width : 60
                 }, {
                     name : 'code',
                     align : 'left',
@@ -93,12 +89,6 @@
                     hidedlg : true,
                     search : false
                 } ],
-                grouping : true,
-                groupingView : {
-                    groupField : [ 'aclType' ],
-                    groupOrder : [ 'desc' ],
-                    groupCollapse : false
-                },
                 delRow : {
                     url : "${base}/auth/role!doDelete"
                 },

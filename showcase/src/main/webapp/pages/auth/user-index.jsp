@@ -42,7 +42,7 @@
         $(function() {
             $("#userListDiv").grid({
                 url : '${base}/auth/user!findByPage',
-                colNames : [ '操作', '类型', '机构代码', '登录账号', '昵称', '电子邮件', '禁用标识', '注册时间', '失效日期' ],
+                colNames : [ '操作', '机构代码', '登录账号', '昵称', '电子邮件', '禁用标识', '注册时间', '失效日期' ],
                 colModel : [ {
                     name : 'operation',
                     align : 'center',
@@ -61,10 +61,6 @@
                             onclick : "$.popupViewDialog('${base}/auth/user!viewTabs?id=" + options.rowId + "')"
                         } ]);
                     }
-                }, {
-                    name : 'aclType',
-                    align : 'center',
-                    width : 60
                 }, {
                     name : 'aclCode',
                     align : 'left',

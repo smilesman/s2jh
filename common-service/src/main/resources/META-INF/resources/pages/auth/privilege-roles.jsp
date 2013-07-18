@@ -5,7 +5,7 @@
     $().ready(function() {
         $("#privilegeRelatedRoleListDiv<s:property value='#parameters.id'/>").grid({
             url : "${base}/auth/privilege!findRelatedRoles?id=<s:property value='#parameters.id'/>",
-            colNames : [ '关联状态', '代码', '类别', '名称', '禁用标识', '锁定标识', '关联时间', '创建时间', '版本号' ],
+            colNames : [ '关联状态', '代码', '名称', '禁用标识', '锁定标识', '关联时间', '创建时间', '版本号' ],
             colModel : [ {
                 name : 'extraAttributes.related',
                 align : 'center',
@@ -25,10 +25,6 @@
                         onclick : "$.popupViewDialog('${base}/auth/role!viewTabs?id=" + options.rowId + "')"
                     });
                 }
-            }, {
-                name : 'aclType',
-                align : 'center',
-                width : 60
             }, {
                 name : 'title',
                 align : 'left'
@@ -57,12 +53,6 @@
             }],
             cmTemplate : {
                 sortable : false
-            },
-            grouping : true,
-            groupingView : {
-                groupField : [ 'aclType' ],
-                groupOrder : [ 'desc' ],
-                groupCollapse : false
             },
             caption : "角色列表"
         });
