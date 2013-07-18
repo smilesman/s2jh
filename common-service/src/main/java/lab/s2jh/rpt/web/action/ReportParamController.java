@@ -3,7 +3,6 @@ package lab.s2jh.rpt.web.action;
 import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.service.BaseService;
 import lab.s2jh.core.web.BaseController;
-import lab.s2jh.core.web.view.OperationResult;
 import lab.s2jh.rpt.entity.ReportParam;
 import lab.s2jh.rpt.service.ReportDefService;
 import lab.s2jh.rpt.service.ReportParamService;
@@ -28,13 +27,6 @@ public class ReportParamController extends BaseController<ReportParam, String> {
     @Override
     protected void checkEntityAclPermission(ReportParam entity) {
         // TODO Add acl check code logic
-    }
-
-    @MetaData(title = "[TODO方法作用]")
-    public HttpHeaders todo() {
-        //TODO
-        setModel(OperationResult.buildSuccessResult("TODO操作完成"));
-        return buildDefaultHttpHeaders();
     }
 
     @Override

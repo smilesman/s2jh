@@ -208,19 +208,20 @@ public class PrivilegeController extends BaseController<Privilege, String> {
 
     @MetaData(title = "批量添加URL到权限列表")
     public HttpHeaders doAddBatch() {
-        String ids = this.getRequest().getParameter("ids");
-        for (String id : ids.split(",")) {
+        Set<String> ids = getParameterIds();
+        for (String id : ids) {
             for (PrivilegeUrlVO url : urls) {
                 if (url.getId().equals(id.trim())) {
                     Privilege privilege = new Privilege();
+                    privilege.setCode("P" + RandomStringUtils.randomNumeric(6));
                     privilege.setCategory(url.getNamespaceLabel());
                     privilege.setTitle(url.getActionNameLabel() + "-" + url.getMethodNameLabel());
                     privilege.setUrl(url.getUrl());
-                    this.getEntityService().save(privilege);
+                    privilegeService.save(privilege);
                 }
             }
         }
-        setModel(OperationResult.buildSuccessResult("批量添加URL到权限列表操作成功"));
+        setModel(OperationResult.buildSuccessResult("批量添加URL到权限列表操作完成"));
         return buildDefaultHttpHeaders();
     }
 

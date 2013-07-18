@@ -225,4 +225,16 @@ public class UserController extends BaseController<User, String> {
         setModel(menus);
         return buildDefaultHttpHeaders();
     }
+
+    @Override
+    @MetaData(title = "版本数据列表")
+    public HttpHeaders revisionList() {
+        return super.revisionList();
+    }
+
+    @Override
+    @MetaData(title = "版本数据对比")
+    public HttpHeaders revisionCompare() {
+        return super.revisionCompare();
+    }
 }

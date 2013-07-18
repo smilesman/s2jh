@@ -23,8 +23,10 @@
                 fixed : true,
                 frozen:true,
                 formatter : function(cellValue, options, rowdata, action) {
-                    link = '<a href="javascript:void(0)" title="查看" onclick="$.popupViewDialog(\'${base}/biz/xs/xs-jbxx!viewTabs?id=' + options.rowId + '\')">' + cellValue + '</a>';
-                    return link;
+                    return $.jgrid.buildLink({
+                        text : cellValue,
+                        onclick : "$.popupViewDialog('${base}/biz/xs/xs-jbxx!viewTabs?id=" + options.rowId + "')"
+                    });                       
                 }
             }, {
                 name : 'xm',

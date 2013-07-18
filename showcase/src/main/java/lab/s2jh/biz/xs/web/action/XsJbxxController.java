@@ -102,9 +102,16 @@ public class XsJbxxController extends BaseBizController<XsJbxx, String> {
         return buildDefaultHttpHeaders();
     }
 
+    @MetaData(title = "学号有效性验证")
+    @SecurityControllIgnore
     public HttpHeaders validXh() {
-        String xh = this.getParameter("xh");
-        setModel(xsJbxxService.findByXxdmAndXh(AuthContextHolder.getAclCode(), xh) != null);
+        String aclCode = AuthContextHolder.getAclCode();
+        if (StringUtils.isNotBlank(aclCode)) {
+            String xh = this.getParameter("xh");
+            setModel(xsJbxxService.findByXxdmAndXh(AuthContextHolder.getAclCode(), xh) != null);
+        } else {
+            setModel(true);
+        }
         return buildDefaultHttpHeaders();
     }
 

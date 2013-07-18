@@ -79,6 +79,7 @@ public class RegionCodeController extends BaseBizController<RegionCode, String> 
         return buildDefaultHttpHeaders();
     }
 
+    @SecurityControllIgnore
     public HttpHeaders cityRegions() {
         String val = this.getParameter("val");
         List<ValueLabelBean> datas = Lists.newArrayList();
@@ -90,6 +91,7 @@ public class RegionCodeController extends BaseBizController<RegionCode, String> 
         return buildDefaultHttpHeaders();
     }
 
+    @SecurityControllIgnore
     public HttpHeaders districtRegions() {
         String val = this.getParameter("val");
         List<ValueLabelBean> datas = Lists.newArrayList();

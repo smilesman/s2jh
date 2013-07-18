@@ -14,7 +14,7 @@
         <li><a href="${base}/biz/xs/xs-lxxx!update?id=<s:property value='#parameters.id'/>">
         <span>联系信息</span>
         </a></li> 
-        <li><a href="${base}/biz/xs/xs-xx-mgt!forward?_to_=revisions&id=<s:property value='#parameters.id'/>">
+        <li><a href="${base}/biz/xs/xs-xx-mgt!!revisionIndex?id=<s:property value='#parameters.id'/>">
         <span>修改记录</span>
         </a></li>               
 	</ul>

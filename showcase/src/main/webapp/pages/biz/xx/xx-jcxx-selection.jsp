@@ -21,17 +21,21 @@
                         search : false,
                         width : 40,
                         formatter : function(cellValue, options, rowdata, action) {
-                            link = '<a class="btn-icon" href="javascript:void(0)" title="选取" onclick="$.triggerGridRowDblClick(this)"><i class="icon-ok-sign"></i></a>';
-                            return link;
+                            return $.jgrid.buildButtons([ {
+                                title : "选取",
+                                icon : "icon-ok",
+                                onclick : "$.triggerGridRowDblClick(this)"
+                            }]);
                         }
                     }, {
                         name : 'xxdm',
                         align : 'center',
-                        fixed : true,
                         width : 100,
                         formatter : function(cellValue, options, rowdata, action) {
-                            link = '<a href="javascript:void(0)" title="查看" onclick="$.popupViewDialog(\'${base}/biz/xx/xx-jcxx!viewTabs?id=' + options.rowId + '\')">' + cellValue + '</a>';
-                            return link;
+                            return $.jgrid.buildLink({
+                                text : cellValue,
+                                onclick : "$.popupViewDialog('${base}/biz/xx/xx-jcxx!viewTabs?id=" + options.rowId + "')"
+                            });
                         }
                     }, {
                         name : 'xxjgdm',
@@ -41,14 +45,14 @@
                         name : 'xxmc',
                         align : 'left'
                     } ],
-                    ondblClickEnabledRow : function(rowid, iRow, iCol, e, rowdata) {
+                    ondblClickRow : function(rowid, iRow, iCol, e) {
+                        var rowdata = $(this).jqGrid("getRowData", rowid);
                         <s:property value='#parameters.callback'/>({
                             id : rowid,
                             xxdm : eraseCellValueLink(rowdata.xxdm),
                             xxmc : rowdata.xxmc
                         });
                         $(this).closest("div.ui-dialog-content").dialog("close");
-
                     },
                     multiselect : false,
                     rowNum : 10,

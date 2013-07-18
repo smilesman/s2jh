@@ -5,7 +5,6 @@ import lab.s2jh.auth.service.UserLogonLogService;
 import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.service.BaseService;
 import lab.s2jh.core.web.BaseController;
-import lab.s2jh.core.web.view.OperationResult;
 
 import org.apache.struts2.rest.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +18,6 @@ public class UserLogonLogController extends BaseController<UserLogonLog, String>
     @Override
     protected BaseService<UserLogonLog, String> getEntityService() {
         return userLogonLogService;
-    }
-
-    @MetaData(title = "[TODO方法作用]")
-    public HttpHeaders todo() {
-        //TODO
-        setModel(OperationResult.buildSuccessResult("TODO操作完成"));
-        return buildDefaultHttpHeaders();
     }
 
     @Override

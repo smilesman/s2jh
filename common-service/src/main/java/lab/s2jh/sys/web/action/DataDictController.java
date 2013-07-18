@@ -5,7 +5,6 @@ import java.util.Map;
 import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.service.BaseService;
 import lab.s2jh.core.web.BaseController;
-import lab.s2jh.core.web.view.OperationResult;
 import lab.s2jh.sys.entity.DataDict;
 import lab.s2jh.sys.service.DataDictService;
 
@@ -14,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Maps;
 
-@MetaData(title = "[TODO控制器名称]")
+@MetaData(title = "数据字典管理")
 public class DataDictController extends BaseController<DataDict, String> {
 
     @Autowired
@@ -28,13 +27,6 @@ public class DataDictController extends BaseController<DataDict, String> {
     @Override
     protected void checkEntityAclPermission(DataDict entity) {
         // TODO Add acl check code logic
-    }
-
-    @MetaData(title = "[TODO方法作用]")
-    public HttpHeaders todo() {
-        //TODO
-        setModel(OperationResult.buildSuccessResult("TODO操作完成"));
-        return buildDefaultHttpHeaders();
     }
 
     @Override

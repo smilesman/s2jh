@@ -802,6 +802,7 @@ public abstract class PersistableController<T extends PersistableEntity<ID>, ID 
      * 为了避免由于权限配置不严格，导致未授权的Controller数据操作访问，父类提供protected基础实现，子类根据需要覆写public然后调用基类方法
      * @return JSON集合数据
      */
+    @MetaData(title = "版本数据列表")
     protected HttpHeaders revisionList() {
         String property = this.getParameter("property");
         Boolean hasChanged = null;
@@ -831,6 +832,7 @@ public abstract class PersistableController<T extends PersistableEntity<ID>, ID 
      * 为了避免由于权限配置不严格，导致未授权的Controller数据操作访问，父类提供protected基础实现，子类根据需要覆写public然后调用基类方法
      * @return 在struts.xml中全局的revisionCompare Result定义
      */
+    @MetaData(title = "版本数据对比")
     protected HttpHeaders revisionCompare() {
         HttpServletRequest request = this.getRequest();
         String id = String.valueOf(this.getId());

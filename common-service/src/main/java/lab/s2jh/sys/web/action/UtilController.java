@@ -49,10 +49,12 @@ public class UtilController extends RestActionSupport implements ModelDriven<Obj
         return model;
     }
 
+    @SecurityControllIgnore
     public HttpHeaders index() {
         return new DefaultHttpHeaders("index");
     }
 
+    @SecurityControllIgnore
     public HttpHeaders logger() {
         return new DefaultHttpHeaders("logger");
     }
@@ -66,6 +68,7 @@ public class UtilController extends RestActionSupport implements ModelDriven<Obj
         return datas;
     }
 
+    @MetaData(title = "刷新数据缓存")
     public HttpHeaders dataEvictCache() {
         HttpServletRequest request = ServletActionContext.getRequest();
         String[] cacheNames = request.getParameterValues("cacheNames");
@@ -106,6 +109,7 @@ public class UtilController extends RestActionSupport implements ModelDriven<Obj
         return dataMap;
     }
 
+    @MetaData(title = "日志级别更新")
     public HttpHeaders loggerLevelUpdate() {
         HttpServletRequest request = ServletActionContext.getRequest();
         String loggerName = request.getParameter("loggerName");

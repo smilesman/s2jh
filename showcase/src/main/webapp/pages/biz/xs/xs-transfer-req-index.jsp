@@ -37,8 +37,10 @@
                         width : 100,
                         fixed : true,
                         formatter : function(cellValue, options, rowdata, action) {
-                            link = '<a href="javascript:void(0)" title="查看" onclick="$.popupViewDialog(\'${base}/biz/xs/xs-jbxx!viewTabs?id=' + rowdata.xsJbxx.id + '\')">' + cellValue + '</a>';
-                            return link;
+                            return $.jgrid.buildLink({
+                                text : cellValue,
+                                onclick : "$.popupViewDialog('${base}/biz/xs/xs-jbxx!viewTabs?id=" + rowdata.xsJbxx.id + "')"
+                            });  
                         }
                     }, {
                         name : 'xsJbxx.xm',
@@ -79,8 +81,10 @@
                         fixed : true,
                         width : 100,
                         formatter : function(cellValue, options, rowdata, action) {
-                            link = '<a href="javascript:void(0)" title="查看" onclick="$.popupViewDialog(\'${base}/biz/xx/xx-jcxx!viewTabs?id=' + rowdata.targetXx.id + '\')">' + cellValue + '</a>';
-                            return link;
+                            return $.jgrid.buildLink({
+                                text : cellValue,
+                                onclick : "$.popupViewDialog('${base}/biz/xx/xx-jcxx!viewTabs?id=" + rowdata.targetXx.id + "')"
+                            });   
                         }
                     }, {
                         name : 'targetXx.xxmc',

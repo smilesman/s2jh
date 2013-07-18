@@ -1,8 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 <script type="text/javascript">
-    $(function() {
 
+    function addSingle(rowid) {
+        var rowdata = $("#privilegeCalcUrlListDiv").getRowData(rowid);
+        var url = '${base}/auth/privilege!create?';
+        url += ("&category=" + rowdata.namespaceLabel);
+        url += ("&title=" + rowdata.actionNameLabel + "-" + rowdata.methodNameLabel);
+        url += ("&url=" + rowdata.url);
+        $("#privilegeIndexTabs").tabs("add", url, "创建-权限");
+    }
+
+    $(function() {
         $("#privilegeCalcUrlListDiv").grid({
             url : '${base}/auth/privilege!calcUrls',
             colNames : [ '操作', '代码', '名称', '代码', '名称', '代码', '名称', 'URL', '受控', '关联权限' ],
@@ -11,7 +20,7 @@
                 align : 'center',
                 fixed : true,
                 sortable : false,
-                search: false,
+                search : false,
                 hidedlg : true,
                 width : 25,
                 formatter : function(cellValue, options, rowdata, action) {
@@ -39,46 +48,29 @@
             }, {
                 name : 'actionNameLabel',
                 align : 'left',
-                width : 100,
-                fixed : true
+                width : 100
             }, {
                 name : 'methodName',
                 align : 'left',
-                width : 80,
-                fixed : true
+                width : 80
             }, {
                 name : 'methodNameLabel',
                 align : 'left',
-                width : 150,
-                fixed : true
+                width : 150
             }, {
                 name : 'url',
                 align : 'left'
             }, {
                 name : 'controlled',
-                align : 'center',
-                width : 50,
-                formatter : booleanFormatter,
-                stype : 'select',
-                searchoptions : {
-                    dataUrl : '${base}/sys/util!booleanMapData.json',
-                    sopt : [ 'eq', 'ne' ]
-                },                
-                fixed : true
+                formatter : booleanFormatter
             }, {
                 name : 'controllPrivileges',
-                align : 'left',
-                fixed : true
+                align : 'left'
             } ],
-            ondblClickEnabledRow : function(rowid, iRow, iCol, e) {
-                var rowdata = $(this).getRowData(rowid);
-                var url = '${base}/auth/privilege!create?';
-                url += ("&category=" + rowdata.namespaceLabel);
-                url += ("&title=" + rowdata.actionNameLabel+"-"+rowdata.methodNameLabel);
-                url += ("&url=" + rowdata.url);
-                $("#privilegeIndexTabs").tabs("add", url, "创建-权限");
+            ondblClickRow : function(rowid, iRow, iCol, e) {
+                addSingle(rowid);
             },
-            groupHeaders : [{
+            groupHeaders : [ {
                 startColumnName : 'namespace',
                 numberOfColumns : 2,
                 titleText : '模块'
@@ -91,7 +83,7 @@
                 numberOfColumns : 2,
                 titleText : '方法'
             } ],
-            loadonce: true,
+            loadonce : true,
             caption : "URL列表"
         });
 
@@ -109,6 +101,12 @@
                 });
             }
         });
+        
+        $("#privilegeAddSingleBtn").click(function() {
+            if (rowid = $("#privilegeCalcUrlListDiv").jqGrid("getOnlyOneSelectedItem")) {
+                addSingle(rowid);
+            }
+        });
     });
 </script>
 <div class="container-fluid">
@@ -116,7 +114,10 @@
 		<div class="toolbar">
 			<div class="toolbar-inner">
 				<button type="button" class="btn" id="privilegeAddBatchBtn">
-					<i class="icon-plus-sign"></i> 批量创建权限
+					<i class="icon-list"></i> 批量创建权限
+				</button>
+				<button type="button" class="btn" id="privilegeAddSingleBtn">
+					<i class="icon-plus-sign"></i> 参考创建权限
 				</button>
 			</div>
 		</div>

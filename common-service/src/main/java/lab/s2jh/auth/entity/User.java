@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.hibernate.validator.constraints.Email;
 
@@ -38,6 +39,7 @@ import com.google.common.collect.Lists;
 @Table(name = "T_AUTH_USER", uniqueConstraints = @UniqueConstraint(columnNames = { "aclCode", "signinid" }))
 @MetaData(title = "用户")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Audited
 public class User extends BaseEntity<String> {
 
     @MetaData(title = "登录账号")

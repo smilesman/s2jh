@@ -16,6 +16,7 @@ import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.exception.WebException;
 import lab.s2jh.core.service.BaseService;
 import lab.s2jh.core.web.BaseController;
+import lab.s2jh.core.web.annotation.SecurityControllIgnore;
 import lab.s2jh.rpt.entity.ReportDef;
 import lab.s2jh.rpt.service.ReportDefService;
 import lab.s2jh.sys.entity.AttachmentFile;
@@ -74,10 +75,12 @@ public class JasperReportController extends BaseController<ReportDef, String> {
         // Do nothing
     }
 
+    @SecurityControllIgnore
     public String generate() {
         return "jasperResult";
     }
 
+    @SecurityControllIgnore
     public String getLocation() {
         HttpServletRequest request = ServletActionContext.getRequest();
         String reportId = request.getParameter("report");
@@ -140,6 +143,7 @@ public class JasperReportController extends BaseController<ReportDef, String> {
         return jasperOutputFormatMap;
     }
 
+    @SecurityControllIgnore
     public String getFormat() {
         HttpServletRequest request = ServletActionContext.getRequest();
         String format = request.getParameter("format");
@@ -149,6 +153,7 @@ public class JasperReportController extends BaseController<ReportDef, String> {
         return format;
     }
 
+    @SecurityControllIgnore
     public String getContentDisposition() {
         HttpServletRequest request = ServletActionContext.getRequest();
         String contentDisposition = request.getParameter("contentDisposition");
@@ -158,6 +163,7 @@ public class JasperReportController extends BaseController<ReportDef, String> {
         return contentDisposition;
     }
 
+    @SecurityControllIgnore
     public String getDocumentName() {
         try {
             HttpServletRequest request = ServletActionContext.getRequest();

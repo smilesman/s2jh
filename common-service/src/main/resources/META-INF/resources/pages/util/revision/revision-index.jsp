@@ -1,23 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 <script type="text/javascript">
+
+	function revisionsCompare(rowid){
+	    var rowdata = $("#revsListDiv").jqGrid("getRowData", rowid);
+        var url="<s:property value="%{getActionName()+'!revisionCompare'}"/>";
+        url+="?id=<s:property value='#parameters.id'/>";
+        url+="&revLeft="+rowdata['revisionEntity.rev'];
+        url+="&revRight="+rowdata['revisionEntity.rev'];
+        $.popupDialog({
+            dialogId : 'revisionsCompareDialog',
+            url : url,
+            title : "数据对比"
+        })
+	}
+
     $().ready(function() {
         $("#revisionsSearchForm").formvalidate({
             initSubmit : true,
             submitHandler : function(form) {
                 $("#revsListDiv").grid({
                     queryForm : $(form),
-                    colNames : [ '版本号', '操作时间', '操作类型','原状态','新状态', '操作说明','操作人员' ],
+                    colNames : [ '操作', '版本号', '操作时间', '操作类型','原状态','新状态', '操作说明','操作人员' ],
                     colModel : [ {
-                        name : 'revisionEntity.rev',
-                        align : 'left',
-                        width : 70,
-                        fixed : true,
+                        name : 'operation',
                         align : 'center',
+                        sortable : false,
+                        hidedlg : true,
+                        search : false,
+                        width : 25,
                         formatter : function(cellValue, options, rowdata, action) {
-                            link = '<a href="javascript:void(0)" title="查看" onclick="$.triggerGridRowDblClick(this)">' + cellValue + '</a>';
-                            return link;
+                            return $.jgrid.buildButtons([{
+                                title : "查看",
+                                icon : "ui-icon-folder-open",
+                                onclick : "revisionsCompare('"+options.rowId+"')"
+                            } ]);
                         }
+                    }, {
+                        name : 'revisionEntity.rev',
+                        width : 70,
+                        align : 'center'
                     }, {
                         name : 'revisionEntity.revstmp',
                         width : 140,
@@ -44,17 +66,11 @@
                         fixed : true,
                         name : 'revisionEntity.username'
                     } ],
-                    ondblClickEnabledRow : function(rowid, iRow, iCol, e, rowdata) {
-                        var url="<s:property value="%{getActionName()+'!revisionCompare'}"/>";
-                        url+="?id=<s:property value='#parameters.id'/>";
-                        url+="&revLeft="+eraseCellValueLink(rowdata['revisionEntity.rev']);
-                        url+="&revRight="+eraseCellValueLink(rowdata['revisionEntity.rev']);
-                        $.popupDialog({
-                            dialogId : 'revisionsCompareDialog',
-                            url : url,
-                            title : "数据对比"
-                        })
+                    ondblClickRow: function(rowid, iRow, iCol, e) {
+                        revisionsCompare(rowid);
                     },
+                    pager: false,
+                    loadonce: true,
                     caption : "数据修改记录"
                 });
             }
@@ -104,8 +120,7 @@
 						<span class="add-on">属性变更</span>
 						<s:select name="property" list="revisionFields" listKey="key.name" listValue="value"
 							cssClass="input-large" />
-						<s:select name="changed" list="#{'true':'有变更','false':'无变更'}"
-							cssClass="input-small" />
+						<s:select name="changed" list="#{'true':'有变更','false':'无变更'}" cssClass="input-small" />
 					</div>
 					<button type="submit" class="btn btn_submit">
 						<i class="icon-search"></i> 查询
