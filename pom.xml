@@ -94,17 +94,19 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+        <repository>
+            <id>jahia</id>
+            <name>jahia repository</name>
+            <url>http://maven.jahia.org/maven2/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>		
 	</repositories>
 
 	<!-- 预定义依赖项的version,scope与exclusions,子项目中只需定义groupId 和 artifactId 即可 -->
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.cloudfoundry</groupId>
-				<artifactId>cloudfoundry-runtime</artifactId>
-				<version>0.8.2</version>
-			</dependency>
-
 			<!-- Excel Support -->
 			<dependency>
 				<groupId>org.apache.poi</groupId>
