@@ -15,6 +15,11 @@
         });
     });
 </script>
+<style type="text/css">
+.form-horizontal .control-label {
+	width: 100px;
+}
+</style>
 </head>
 <body>
 	<div class="container-fluid data-edit">
@@ -43,19 +48,53 @@
 						<div class="row-fluid">
 							<div class="span6">
 								<s:if test="type.name()=='DATE'">
-									<s:textfield id="%{#attr.iteratorId}" cssClass="edit_text %{fullValidateRules}"
-										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{defaultValue}" maxlength="12" />
-									<s:set var="calendarId" value="%{'reportParameter_' + #s.index}" scope="page" />
-									<script type="text/javascript">
-                                        initCalendar({
-                                            el : '<s:property value="#attr.iteratorId"/>',
-                                            type : 'date'
-                                        });
-                                    </script>
+									<s2:datetextfield name="%{'reportParameterMap[\\''+code+'\\']'}"
+										value="%{#reportParameter.defaultValue}" validator="%{#reportParameter.fullValidateRules}"
+										label="%{#reportParameter.title}" format="date" required="%{#reportParameter.required}" />
 								</s:if>
+								<s:elseif test="type.name()=='TIMESTAMP'">
+									<s2:datetextfield name="%{'reportParameterMap[\\''+code+'\\']'}"
+										value="%{#reportParameter.defaultValue}" validator="%{#reportParameter.fullValidateRules}"
+										label="%{#reportParameter.title}" format="timestamp"
+										required="%{#reportParameter.required}" />
+								</s:elseif>
+								<s:elseif test="type.name()=='BOOLEAN'">
+									<s2:radio name="%{'reportParameterMap[\\''+code+'\\']'}"
+										value="%{#reportParameter.defaultValue}" validator="%{#reportParameter.fullValidateRules}"
+										list="#application.booleanLabelMap" label="%{#reportParameter.title}" />
+								</s:elseif>
+								<s:elseif test="type.name()=='SQL_LIST'">
+									<s2:select validator="%{#reportParameter.fullValidateRules}"
+										list="getSQLKeyValueMap(#reportParameter.listDataSource)"
+										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
+										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
+										multiple="%{multiSelectFlag?true:false}" />
+
+								</s:elseif>
+								<s:elseif test="type.name()=='OGNL_LIST'">
+									<s2:select validator="%{#reportParameter.fullValidateRules}"
+										list="getOGNLKeyValueMap(#reportParameter.listDataSource)"
+										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
+										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
+										multiple="%{multiSelectFlag?true:false}" />
+								</s:elseif>
+								<s:elseif test="type.name()=='ENUM'">
+									<s2:select validator="%{#reportParameter.fullValidateRules}"
+										list="getEnumKeyValueMap(#reportParameter.listDataSource)"
+										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
+										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
+										multiple="%{multiSelectFlag?true:false}" />
+								</s:elseif>
+								<s:elseif test="type.name()=='DATA_DICT_LIST'">
+									<s2:select validator="%{#reportParameter.fullValidateRules}"
+										list="getDataDictKeyValueMap(#reportParameter.listDataSource)"
+										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
+										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
+										multiple="%{multiSelectFlag?true:false}" />
+								</s:elseif>
 								<s:else>
-									<s2:textfield id="%{'reportParameter_' + #s.index}" validator="%{fullValidateRules}"
-										name="%{'reportParameters[\\''+code+'\\']'}" value="%{defaultValue}"
+									<s2:textfield validator="%{#reportParameter.fullValidateRules}"
+										name="%{'reportParameters[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
 										label="%{#reportParameter.title}" />
 								</s:else>
 							</div>

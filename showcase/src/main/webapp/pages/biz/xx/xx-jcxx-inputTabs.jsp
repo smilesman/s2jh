@@ -5,8 +5,5 @@
 	    <li><a href="${base}/biz/xx/xx-jcxx!<s:property value="%{isBlank(#parameters.id)?'create':'update'}"/>?id=<s:property value='#parameters.id'/>">
 	    <span>基本信息</span>
 	    </a></li>
-	    <li><a href="${base}/biz/xx/xx-jcxx!forward?_to_=TODO&id=<s:property value='#parameters.id'/>">
-	    <span>TODO关联</span>
-	    </a></li>
 	</ul>
 </s2:tabbedpanel>

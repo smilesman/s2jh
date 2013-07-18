@@ -4,8 +4,5 @@
 	<ul>
 		<li><a href="${base}/auth/privilege!view?id=<s:property value='#parameters.id'/>"> <span>基本信息</span>
 		</a></li>
-		<li><a
-			href="${base}/auth/privilege!forward?_to_=TODO&id=<s:property value='#parameters.id'/>"> <span>TODO关联</span>
-		</a></li>
 	</ul>
 </s2:tabbedpanel>
