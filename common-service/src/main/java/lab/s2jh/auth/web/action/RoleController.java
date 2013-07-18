@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import lab.s2jh.auth.entity.Privilege;
 import lab.s2jh.auth.entity.Role;
 import lab.s2jh.auth.entity.RoleR2Privilege;
 import lab.s2jh.auth.service.PrivilegeService;
 import lab.s2jh.auth.service.RoleService;
 import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.exception.DataAccessDeniedException;
+import lab.s2jh.core.pagination.GroupPropertyFilter;
 import lab.s2jh.core.pagination.PropertyFilter;
 import lab.s2jh.core.pagination.PropertyFilter.MatchType;
 import lab.s2jh.core.security.AclService;
@@ -128,18 +130,20 @@ public class RoleController extends BaseController<Role, String> {
     @MetaData(title = "计算显示已经关联权限列表")
     @SecurityControllIgnore
     public HttpHeaders findRelatedRoleR2Privileges() {
-        List<PropertyFilter> filters = PropertyFilter.buildFiltersFromHttpRequest(RoleR2Privilege.class, getRequest());
+        GroupPropertyFilter groupFilter = GroupPropertyFilter
+                .buildGroupFilterFromHttpRequest(RoleR2Privilege.class, getRequest());
         Pageable pageable = PropertyFilter.buildPageableFromHttpRequest(getRequest());
-        setModel(roleService.findRelatedRoleR2PrivilegesForRole(this.getId(), filters, pageable));
+        setModel(roleService.findRelatedRoleR2PrivilegesForRole(this.getId(), groupFilter, pageable));
         return buildDefaultHttpHeaders();
     }
 
     @MetaData(title = "计算显示可选关联权限列表")
     @SecurityControllIgnore
     public HttpHeaders findUnRelatedPrivileges() {
-        List<PropertyFilter> filters = PropertyFilter.buildFiltersFromHttpRequest(RoleR2Privilege.class, getRequest());
+        GroupPropertyFilter groupFilter = GroupPropertyFilter
+                .buildGroupFilterFromHttpRequest(Privilege.class, getRequest());
         Pageable pageable = PropertyFilter.buildPageableFromHttpRequest(getRequest());
-        setModel(privilegeService.findUnRelatedPrivilegesForRole(this.getId(), filters, pageable));
+        setModel(privilegeService.findUnRelatedPrivilegesForRole(this.getId(), groupFilter, pageable));
         return buildDefaultHttpHeaders();
     }
 

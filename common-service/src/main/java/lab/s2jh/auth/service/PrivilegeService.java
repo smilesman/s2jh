@@ -19,7 +19,7 @@ import lab.s2jh.auth.entity.Privilege;
 import lab.s2jh.auth.entity.Role;
 import lab.s2jh.auth.entity.RoleR2Privilege;
 import lab.s2jh.core.dao.BaseDao;
-import lab.s2jh.core.pagination.PropertyFilter;
+import lab.s2jh.core.pagination.GroupPropertyFilter;
 import lab.s2jh.core.service.BaseService;
 import lab.s2jh.rpt.dao.ReportDefDao;
 import lab.s2jh.rpt.entity.ReportDef;
@@ -73,18 +73,17 @@ public class PrivilegeService extends BaseService<Privilege, String> {
     }
 
     @Transactional(readOnly = true)
-    public Page<Privilege> findUnRelatedPrivilegesForRole(final String roleId, final List<PropertyFilter> filters,
+    public Page<Privilege> findUnRelatedPrivilegesForRole(final String roleId, final GroupPropertyFilter groupFilter,
             Pageable pageable) {
         Specification<Privilege> specification = new Specification<Privilege>() {
             @Override
             public Predicate toPredicate(Root<Privilege> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-                List<Predicate> predicates = buildPredicatesFromFilters(filters, root, query, builder);
+                Predicate predicate = buildPredicatesFromFilters(groupFilter, root, query, builder);
                 Subquery<RoleR2Privilege> sq = query.subquery(RoleR2Privilege.class);
                 Root<RoleR2Privilege> r2 = sq.from(RoleR2Privilege.class);
                 sq.where(builder.equal(r2.get("privilege"), root), builder.equal(r2.get("role").get("id"), roleId))
                         .select(r2);
-                predicates.add(builder.not(builder.exists(sq)));
-                return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+                return builder.and(predicate, builder.not(builder.exists(sq)));
             }
         };
         return privilegeDao.findAll(specification, pageable);

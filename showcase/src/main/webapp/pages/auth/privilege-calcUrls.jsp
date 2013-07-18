@@ -117,7 +117,7 @@
 					<i class="icon-list"></i> 批量创建权限
 				</button>
 				<button type="button" class="btn" id="privilegeAddSingleBtn">
-					<i class="icon-plus-sign"></i> 参考创建权限
+					<i class="icon-share"></i> 参考创建权限
 				</button>
 			</div>
 		</div>

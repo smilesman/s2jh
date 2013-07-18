@@ -15,7 +15,7 @@
                     return $.jgrid.buildLink({
                         text : cellValue,
                         onclick : "$.popupViewDialog('${base}/auth/privilege!viewTabs?id=" + rowdata.privilege.id + "')"
-                    });                    
+                    });
                 }
             }, {
                 name : 'privilege.title',
@@ -33,6 +33,9 @@
                 groupField : [ 'privilege.category' ],
                 groupOrder : [ 'asc' ],
                 groupCollapse : false
+            },
+            filterToolbar : {
+                searchOperators : false
             },
             caption : "已经关联权限列表"
         });
@@ -67,6 +70,9 @@
                 groupField : [ 'category' ],
                 groupOrder : [ 'asc' ],
                 groupCollapse : false
+            },
+            filterToolbar : {
+                searchOperators : false
             },
             caption : "可选关联权限列表"
         });

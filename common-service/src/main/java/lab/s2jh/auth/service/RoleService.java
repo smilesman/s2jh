@@ -17,7 +17,7 @@ import lab.s2jh.auth.entity.Role;
 import lab.s2jh.auth.entity.RoleR2Privilege;
 import lab.s2jh.auth.entity.UserR2Role;
 import lab.s2jh.core.dao.BaseDao;
-import lab.s2jh.core.pagination.PropertyFilter;
+import lab.s2jh.core.pagination.GroupPropertyFilter;
 import lab.s2jh.core.service.BaseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,13 +68,12 @@ public class RoleService extends BaseService<Role, String> {
     
     @Transactional(readOnly = true)
     public Page<RoleR2Privilege> findRelatedRoleR2PrivilegesForRole(final String roleId,
-            final List<PropertyFilter> filters, Pageable pageable) {
+            final GroupPropertyFilter groupFilter, Pageable pageable) {
         Specification<RoleR2Privilege> specification = new Specification<RoleR2Privilege>() {
             @Override
             public Predicate toPredicate(Root<RoleR2Privilege> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-                List<Predicate> predicates = buildPredicatesFromFilters(filters, root, query, builder);
-                predicates.add(builder.equal(root.get("role").get("id"), roleId));
-                return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+                Predicate predicate = buildPredicatesFromFilters(groupFilter, root, query, builder);
+                return builder.and(predicate,builder.equal(root.get("role").get("id"), roleId));
             }
         };
         return roleR2PrivilegeDao.findAll(specification, pageable);

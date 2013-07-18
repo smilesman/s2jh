@@ -23,7 +23,7 @@
     $.extend($.jgrid.defaults, {
         datatype : "json",
         loadonce : false,
-        filterToolbar : true,
+        filterToolbar : {},
         ignoreCase : true,
         prmNames : {
             npage : "npage"
@@ -126,7 +126,7 @@
                 var grid = $($t);
 
                 pin = $.extend({
-                    filterToolbar : true,
+                    filterToolbar : {},
                     columnChooser : true
                 }, pin);
 
@@ -264,7 +264,7 @@
                 }
 
                 if (pin.filterToolbar) {
-                    grid.jqGrid('filterToolbar');
+                    grid.jqGrid('filterToolbar',pin.filterToolbar);
                 }
 
                 if (pin.columnChooser) {
