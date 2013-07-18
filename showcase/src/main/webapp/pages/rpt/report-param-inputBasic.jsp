@@ -59,7 +59,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<s2:textfield name="listDataSource" label="集合数据源 " />
+					<s2:textarea name="listDataSource" label="集合数据源 " rows="3" />
 				</div>
 			</div>
 			<div class="row-fluid">
@@ -74,7 +74,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<s2:textfield name="description" label="描述" />
+					<s2:textarea name="description" label="描述" rows="3"/>
 				</div>
 			</div>
 		</div>

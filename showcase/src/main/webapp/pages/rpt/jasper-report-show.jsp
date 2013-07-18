@@ -93,6 +93,11 @@
 										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
 										multiple="%{multiSelectFlag?true:false}" required="%{#reportParameter.required}" />
 								</s:elseif>
+								<s:elseif test="type.name()=='MULTI_TEXT'">
+									<s2:textarea validator="%{#reportParameter.fullValidateRules}" rows="3"
+										name="%{'reportParameters[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
+										label="%{#reportParameter.title}" required="%{#reportParameter.required}" />
+								</s:elseif>
 								<s:else>
 									<s2:textfield validator="%{#reportParameter.fullValidateRules}"
 										name="%{'reportParameters[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"

@@ -2,6 +2,7 @@ package lab.s2jh.rpt.web.action;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
@@ -25,7 +26,6 @@ import ognl.Ognl;
 import ognl.OgnlException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.rest.HttpHeaders;
 import org.apache.struts2.views.jasperreports.JasperReportConstants;
@@ -264,10 +264,13 @@ public class JasperReportController extends BaseController<ReportDef, String> {
         try {
             if (StringUtils.isNotBlank(enumClass)) {
                 Class clazz = Class.forName(enumClass);
-                Object[] items = clazz.getEnumConstants();
-                for (Object enumItem : items) {
-                    String value = (String) MethodUtils.invokeMethod(enumItem, "getLabel", null);
-                    dataMap.put(String.valueOf(enumItem), value);
+                for (Field enumfield : clazz.getFields()) {
+                    MetaData entityComment = enumfield.getAnnotation(MetaData.class);
+                    String value = enumfield.getName();
+                    if (entityComment != null) {
+                        value = entityComment.title();
+                    }
+                    dataMap.put(enumfield.getName(), value);
                 }
             }
         } catch (Exception e) {
