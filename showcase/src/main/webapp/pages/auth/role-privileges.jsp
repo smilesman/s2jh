@@ -112,8 +112,10 @@
 </script>
 <div class="container-fluid">
 	<div class="row-fluid">
-		<table id="roleRelatedPrivilegeListDiv<s:property value='#parameters.id'/>"></table>
-		<div id="roleRelatedPrivilegeListDiv<s:property value='#parameters.id'/>Pager"></div>
+		<div class="span11">
+			<table id="roleRelatedPrivilegeListDiv<s:property value='#parameters.id'/>"></table>
+			<div id="roleRelatedPrivilegeListDiv<s:property value='#parameters.id'/>Pager"></div>
+		</div>
 	</div>
 	<div class="row-fluid">
 		<div class="toolbar">
@@ -130,7 +132,9 @@
 		</div>
 	</div>
 	<div class="row-fluid">
-		<table id="roleUnRelatedPrivilegeListDiv<s:property value='#parameters.id'/>"></table>
-		<div id="roleUnRelatedPrivilegeListDiv<s:property value='#parameters.id'/>Pager"></div>
+		<div class="span11">
+			<table id="roleUnRelatedPrivilegeListDiv<s:property value='#parameters.id'/>"></table>
+			<div id="roleUnRelatedPrivilegeListDiv<s:property value='#parameters.id'/>Pager"></div>
+		</div>
 	</div>
 </div>
