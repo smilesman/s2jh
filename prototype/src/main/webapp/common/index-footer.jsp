@@ -52,10 +52,10 @@
 <script src="${base}/components/jquery.MultiFile/1.48/jquery.MultiFile.js?_=${buildVersion}"></script>
 
 <script
-    src="${base}/components/jQuery-File-Upload/8.6.0/js/jquery.iframe-transport.js?_=${buildVersion}"></script>
+	src="${base}/components/jQuery-File-Upload/8.6.0/js/jquery.iframe-transport.js?_=${buildVersion}"></script>
 <script src="${base}/components/jQuery-File-Upload/8.6.0/js/jquery.fileupload.js?_=${buildVersion}"></script>
 <link rel="stylesheet" type="text/css"
-    href="${base}/components/jQuery-File-Upload/8.6.0/css/jquery.fileupload-ui.css?_=${buildVersion}">
+	href="${base}/components/jQuery-File-Upload/8.6.0/css/jquery.fileupload-ui.css?_=${buildVersion}">
 
 <script src="${base}/components/js-util/pinyin.js?_=${buildVersion}"></script>
 
@@ -125,5 +125,4 @@
             window.location.href = url;
         }
     });
-    
 </script>
