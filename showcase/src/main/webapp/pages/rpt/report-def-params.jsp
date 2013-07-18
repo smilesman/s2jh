@@ -22,8 +22,7 @@
                 }
             }, {
                 name : 'code',
-                align : 'center',
-                fixed : true,
+                align : 'left',
                 hidedlg : true,
                 width : 100
             }, {
