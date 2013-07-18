@@ -1,1 +1,0 @@
-script to 'c:\\1.sql' charset 'GBK' table t_rpt_report_def 

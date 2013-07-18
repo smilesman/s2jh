@@ -58,6 +58,8 @@
 
 			<jdbc:script location="classpath:sql/data/t_rpt_report_def.sql"
 				encoding="UTF-8" />
+            <jdbc:script location="classpath:sql/data/t_rpt_report_param.sql"
+                encoding="UTF-8" />				
 
 			<jdbc:script location="classpath:sql/data/sys_enum_type.sql"
 				encoding="UTF-8" />

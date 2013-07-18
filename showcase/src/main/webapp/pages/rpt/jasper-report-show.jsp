@@ -61,14 +61,15 @@
 								<s:elseif test="type.name()=='BOOLEAN'">
 									<s2:radio name="%{'reportParameterMap[\\''+code+'\\']'}"
 										value="%{#reportParameter.defaultValue}" validator="%{#reportParameter.fullValidateRules}"
-										list="#application.booleanLabelMap" label="%{#reportParameter.title}" />
+										list="#application.booleanLabelMap" label="%{#reportParameter.title}"
+										required="%{#reportParameter.required}" />
 								</s:elseif>
 								<s:elseif test="type.name()=='SQL_LIST'">
 									<s2:select validator="%{#reportParameter.fullValidateRules}"
 										list="getSQLKeyValueMap(#reportParameter.listDataSource)"
 										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
 										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
-										multiple="%{multiSelectFlag?true:false}" />
+										multiple="%{multiSelectFlag?true:false}" required="%{#reportParameter.required}" />
 
 								</s:elseif>
 								<s:elseif test="type.name()=='OGNL_LIST'">
@@ -76,26 +77,26 @@
 										list="getOGNLKeyValueMap(#reportParameter.listDataSource)"
 										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
 										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
-										multiple="%{multiSelectFlag?true:false}" />
+										multiple="%{multiSelectFlag?true:false}" required="%{#reportParameter.required}" />
 								</s:elseif>
 								<s:elseif test="type.name()=='ENUM'">
 									<s2:select validator="%{#reportParameter.fullValidateRules}"
 										list="getEnumKeyValueMap(#reportParameter.listDataSource)"
 										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
 										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
-										multiple="%{multiSelectFlag?true:false}" />
+										multiple="%{multiSelectFlag?true:false}" required="%{#reportParameter.required}" />
 								</s:elseif>
 								<s:elseif test="type.name()=='DATA_DICT_LIST'">
 									<s2:select validator="%{#reportParameter.fullValidateRules}"
 										list="getDataDictKeyValueMap(#reportParameter.listDataSource)"
 										name="%{'reportParameterMap[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
 										label="%{#reportParameter.title}" size="%{multiSelectFlag?6:1}"
-										multiple="%{multiSelectFlag?true:false}" />
+										multiple="%{multiSelectFlag?true:false}" required="%{#reportParameter.required}" />
 								</s:elseif>
 								<s:else>
 									<s2:textfield validator="%{#reportParameter.fullValidateRules}"
 										name="%{'reportParameters[\\''+code+'\\']'}" value="%{#reportParameter.defaultValue}"
-										label="%{#reportParameter.title}" />
+										label="%{#reportParameter.title}" required="%{#reportParameter.required}" />
 								</s:else>
 							</div>
 						</div>
