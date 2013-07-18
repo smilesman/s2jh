@@ -26,6 +26,12 @@
                 align : 'left',
                 hidden : true
             } ],
+            grouping : true,
+            groupingView : {
+                groupField : [ 'privilege.category' ],
+                groupOrder : [ 'asc' ],
+                groupCollapse : false
+            },
             caption : "已经关联权限列表"
         });
 
@@ -52,6 +58,12 @@
                 align : 'left',
                 hidden : true
             } ],
+            grouping : true,
+            groupingView : {
+                groupField : [ 'category' ],
+                groupOrder : [ 'asc' ],
+                groupCollapse : false
+            },
             caption : "可选关联权限列表"
         });
 
