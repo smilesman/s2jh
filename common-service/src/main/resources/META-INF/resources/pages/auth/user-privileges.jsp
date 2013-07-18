@@ -12,8 +12,10 @@
                 fixed : true,
                 width : 80,
                 formatter : function(cellValue, options, rowdata, action) {
-                    link = '<a href="javascript:void(0)" title="查看" onclick="$.popupViewDialog(\'${base}/auth/privilege!viewTabs?id=' + options.rowId + '\')">' + cellValue + '</a>';
-                    return link;
+                    return $.jgrid.buildLink({
+                        text : cellValue,
+                        onclick : "$.popupViewDialog('${base}/auth/privilege!viewTabs?id=" + options.rowId + "')"
+                    });
                 }
             }, {
                 name : 'title',

@@ -15,5 +15,7 @@
 		<li><a href="${base}/auth/user!forward?_to_=menus&id=<s:property value='#parameters.id'/>">
 				<span>菜单汇总</span>
 		</a></li>
+		<li><a href="${base}/auth/user!revisionIndex?id=<s:property value='#parameters.id'/>"> <span>修改记录</span>
+		</a></li>
 	</ul>
 </s2:tabbedpanel>
