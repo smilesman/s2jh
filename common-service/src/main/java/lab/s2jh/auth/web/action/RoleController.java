@@ -48,7 +48,7 @@ public class RoleController extends BaseController<Role, String> {
     protected void checkEntityAclPermission(Role entity) {
         //Do nothing check
     }
-    
+
     public Map<Integer, String> getAclTypeMap() {
         Map<Integer, String> aclTypeMap = Maps.newLinkedHashMap();
         if (aclService != null) {
@@ -66,7 +66,7 @@ public class RoleController extends BaseController<Role, String> {
         }
         return aclTypeMap;
     }
-    
+
     @SecurityControllIgnore
     public HttpHeaders aclTypeMapData() {
         setModel(getAclTypeMap());
@@ -88,13 +88,15 @@ public class RoleController extends BaseController<Role, String> {
     @Override
     @MetaData(title = "创建")
     public HttpHeaders doCreate() {
-        //判断选取的类型是否属于当前登录用户管辖范围
-        Integer aclType = Integer.valueOf(this.getRequiredParameter("aclType"));
         Integer authUserAclType = AuthContextHolder.getAuthUserDetails().getAclType();
-        if (authUserAclType == null || authUserAclType < aclType) {
-            throw new DataAccessDeniedException("数据访问权限不足");
+        if (authUserAclType != null && authUserAclType > 0) {
+            //判断选取的类型是否属于当前登录用户管辖范围
+            Integer aclType = Integer.valueOf(this.getRequiredParameter("aclType"));
+            if (authUserAclType == null || authUserAclType < aclType) {
+                throw new DataAccessDeniedException("数据访问权限不足");
+            }
+            bindingEntity.setAclType(aclType);
         }
-        bindingEntity.setAclType(aclType);
         return super.doCreate();
     }
 
