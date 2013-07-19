@@ -69,7 +69,7 @@
 		<div class="well">
 			<div class="row-fluid">
 				<div class="span6">
-					<biz:xxinput name="targetXx.xxdm" label="转入学校 " validator="" required="true" />
+					<biz:xxinput name="targetXx.xxdm" label="转入学校 " validator="" requiredLabel="true" />
 				</div>
 			</div>
 			<div class="row-fluid">

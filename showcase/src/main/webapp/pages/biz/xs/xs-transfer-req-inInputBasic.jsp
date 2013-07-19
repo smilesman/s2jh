@@ -92,12 +92,12 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<biz:xxbjinput name="bh" label="转入班级" validator="" required="true" />
+					<biz:xxbjinput name="bh" label="转入班级" validator="" requiredLabel="true" />
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span6">
-					<s2:textfield name="xh" label="新学号" validator="" required="true" />
+					<s2:textfield name="xh" label="新学号" validator="" requiredLabel="true" />
 				</div>
 			</div>
 			<div class="row-fluid">

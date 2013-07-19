@@ -92,7 +92,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<s2:radio list="#{true:'通过',false:'打回'}" name="auditResult" label="审批意见" required="true" />
+					<s2:radio list="#{true:'通过',false:'打回'}" name="auditResult" label="审批意见" requiredLabel="true" />
 				</div>
 			</div>
 			<div class="row-fluid">

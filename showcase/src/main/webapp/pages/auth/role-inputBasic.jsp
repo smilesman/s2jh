@@ -26,7 +26,7 @@
 		<div class="well">
 			<div class="row-fluid">
 				<div class="span6">
-					<s2:textfield name="code" label="代码" />
+					<s2:textfield name="code" label="代码"/>
 				</div>
 			</div>
 			<div class="row-fluid">

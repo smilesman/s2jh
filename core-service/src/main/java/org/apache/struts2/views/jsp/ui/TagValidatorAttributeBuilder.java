@@ -92,8 +92,8 @@ public class TagValidatorAttributeBuilder {
                         Column column = method.getAnnotation(Column.class);
                         if (column != null) {
                             if (column.nullable() == false) {
-                                if (tag.required == null) {
-                                    uiBean.setRequired("true");
+                                if (tag.requiredLabel == null) {
+                                    uiBean.setRequiredLabel("true");
                                 }
                             }
                             if (column.unique() == true) {

@@ -15,7 +15,7 @@
                     return $.jgrid.buildLink({
                         text : cellValue,
                         onclick : "$.popupViewDialog('${base}/auth/privilege!viewTabs?id=" + rowdata.privilege.id + "')"
-                    });                    
+                    });
                 }
             }, {
                 name : 'privilege.title',
@@ -33,6 +33,9 @@
                 groupField : [ 'privilege.category' ],
                 groupOrder : [ 'asc' ],
                 groupCollapse : false
+            },
+            filterToolbar : {
+                searchOperators : false
             },
             caption : "已经关联权限列表"
         });
@@ -67,6 +70,9 @@
                 groupField : [ 'category' ],
                 groupOrder : [ 'asc' ],
                 groupCollapse : false
+            },
+            filterToolbar : {
+                searchOperators : false
             },
             caption : "可选关联权限列表"
         });
@@ -106,8 +112,10 @@
 </script>
 <div class="container-fluid">
 	<div class="row-fluid">
-		<table id="roleRelatedPrivilegeListDiv<s:property value='#parameters.id'/>"></table>
-		<div id="roleRelatedPrivilegeListDiv<s:property value='#parameters.id'/>Pager"></div>
+		<div class="span11">
+			<table id="roleRelatedPrivilegeListDiv<s:property value='#parameters.id'/>"></table>
+			<div id="roleRelatedPrivilegeListDiv<s:property value='#parameters.id'/>Pager"></div>
+		</div>
 	</div>
 	<div class="row-fluid">
 		<div class="toolbar">
@@ -124,7 +132,9 @@
 		</div>
 	</div>
 	<div class="row-fluid">
-		<table id="roleUnRelatedPrivilegeListDiv<s:property value='#parameters.id'/>"></table>
-		<div id="roleUnRelatedPrivilegeListDiv<s:property value='#parameters.id'/>Pager"></div>
+		<div class="span11">
+			<table id="roleUnRelatedPrivilegeListDiv<s:property value='#parameters.id'/>"></table>
+			<div id="roleUnRelatedPrivilegeListDiv<s:property value='#parameters.id'/>Pager"></div>
+		</div>
 	</div>
 </div>

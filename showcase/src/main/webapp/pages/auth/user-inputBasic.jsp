@@ -55,11 +55,11 @@
                 </script>
                 <div id="passwordDiv<s:property value='#parameters.id'/>" class="row-fluid hide">
                     <div class="span6">
-                        <s2:password name="newpassword" label="设置密码" required="true" validator="{minlength:3}"
+                        <s2:password name="newpassword" label="设置密码" requiredLabel="true" validator="{minlength:3}"
                             disabled="true" />
                     </div>
                     <div class="span6">
-                        <s2:password name="cfmpassword" label="重复密码" required="true"
+                        <s2:password name="cfmpassword" label="重复密码" requiredLabel="true"
                             validator="{equalToByName:'newpassword'}" disabled="true" />
                     </div>
                 </div>
@@ -67,10 +67,10 @@
             <s:else>
                 <div class="row-fluid">
                     <div class="span6">
-                        <s2:password name="newpassword" label="设置密码" required="true" validator="{minlength:3}" />
+                        <s2:password name="newpassword" label="设置密码" requiredLabel="true" validator="{minlength:3}" />
                     </div>
                     <div class="span6">
-                        <s2:password name="cfmpassword" label="重复密码" required="true"
+                        <s2:password name="cfmpassword" label="重复密码" requiredLabel="true"
                             validator="{equalToByName:'newpassword'}" />
                     </div>
                 </div>

@@ -44,7 +44,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<biz:xxbjinput name="xxBjBh" label="班级" validator="" required="true" value="%{xxBj.bh}" />
+					<biz:xxbjinput name="xxBjBh" label="班级" validator="" requiredLabel="true" value="%{xxBj.bh}" />
 				</div>
 			</div>
 			<div class="row-fluid">
