@@ -69,6 +69,13 @@
                 self.remove();
                 event.stopPropagation();
             });
+            
+            self.element.delegate("ul.ui-tabs-nav > li.closable > a.closable-icon", "click", function(event) {
+                var idx=$(this).parent().index('li'); 
+                self.remove(idx);
+                event.stopPropagation();
+            });
+            
             if (this.options.disableItemsExcludeFirst == 'true') {
                 for (i = 1; i < this.tabs.length; i++) {
                     this.disable(i);
@@ -110,7 +117,7 @@
                 this._activate(idx);
                 return;
             }
-            $("<li class='closable' title='双击可关闭当前项'><a href='" + url + "'><span>" + title + "</span></a></li>").appendTo(this.element.find(" > ul.ui-tabs-nav"));
+            $("<li class='closable' title='双击可关闭当前项'><a href='" + url + "'><span>" + title + "</span></a><a href='#' style='padding:1px;cursor:pointer' class='closable-icon'><span class='ui-icon ui-icon-close'></span></a></li>").appendTo(this.element.find(" > ul.ui-tabs-nav"));
             this.refresh();
             this.tablist.find("li.refresh-active").show();
             if (active == undefined || active) {
