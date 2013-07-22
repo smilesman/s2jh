@@ -61,13 +61,17 @@ public class UserService extends BaseService<User, String> {
     @Override
     protected void preInsert(User entity) {
         super.preInsert(entity);
-        entity.setAclType(aclService.aclCodeToType(entity.getAclCode()));
+        if (aclService != null) {
+            entity.setAclType(aclService.aclCodeToType(entity.getAclCode()));
+        }
         entity.setSignupTime(new Date());
     }
 
     @Override
     protected void preUpdate(User entity) {
-        entity.setAclType(aclService.aclCodeToType(entity.getAclCode()));
+        if (aclService != null) {
+            entity.setAclType(aclService.aclCodeToType(entity.getAclCode()));
+        }
         super.preUpdate(entity);
     }
 
@@ -145,7 +149,6 @@ public class UserService extends BaseService<User, String> {
         return userR2RoleDao.findByUser_Id(userId);
     }
 
-    
     public void updateRelatedRoleR2s(String id, Collection<String> roleIds, R2OperationEnum op) {
         updateRelatedR2s(id, roleIds, "userR2Roles", "role", op);
     }
