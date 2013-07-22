@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 @StrutsTag(
         name="htmltextarea",
-        tldTagClass="org.apache.struts2.views.jsp.ui.HtmlTextareaTag",
+        tldTagClass="org.apache.struts2.views.jsp.ui.S2HtmlTextareaTag",
         description="Render HTML textarea tag.",
         allowDynamicAttributes=true)
 public class HtmlTextArea extends UIBean {

@@ -7,13 +7,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.components.UIBean;
 
 /**
- * 标准的form标签的id属性：如果没有提供id属性值则取action属性定义值
- * 这样如果同一个AJAX页面重复多次显示相同JSP页面，则会出现id冲突问题
- * 
- * 因此提供一个扩展form标签，如果没有提供id属性值则以随机生成id值从而避免相同id冲突问题
+ * 提供一个扩展form标签，如果没有提供id属性值则以随机生成id值从而避免相同id冲突问题
  */
 public class S2FormTag extends FormTag {
 
+    /**
+     * 标签默认会生成form表单缺省的JQuery Validation初始化Javascript代码
+     * 可以设定此属性autoValidate为false从而可以自行编写表单校验逻辑
+     */
     protected String autoValidate = "true";
 
     protected void populateParams() {

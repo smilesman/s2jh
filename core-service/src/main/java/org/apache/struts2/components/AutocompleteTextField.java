@@ -8,7 +8,7 @@ import org.apache.struts2.views.annotations.StrutsTagAttribute;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-@StrutsTag(name = "autocompletetextfield", tldTagClass = "org.apache.struts2.views.jsp.ui.AutocompleteTextFieldTag", description = "Render an HTML input field of type text", allowDynamicAttributes = true)
+@StrutsTag(name = "autocompletetextfield", tldTagClass = "org.apache.struts2.views.jsp.ui.S2AutocompleteTextFieldTag", description = "Render an HTML input field of type text", allowDynamicAttributes = true)
 public class AutocompleteTextField extends UIBean {
     /**
      * The name of the default template for the TextFieldTag
@@ -18,7 +18,7 @@ public class AutocompleteTextField extends UIBean {
     protected String maxlength;
     protected String readonly;
     protected String size;
-    protected String url;
+    protected String source;
     protected String options;
     
     public AutocompleteTextField(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
@@ -44,8 +44,8 @@ public class AutocompleteTextField extends UIBean {
             addParameter("readonly", findValue(readonly, Boolean.class));
         }
         
-        if (url != null) {
-            addParameter("url", findString(url));
+        if (source != null) {
+            addParameter("source", findString(source));
         }
         
         if (options != null) {
@@ -73,9 +73,9 @@ public class AutocompleteTextField extends UIBean {
         this.size = size;
     }
     
-    @StrutsTagAttribute(description = "HTML url attribute", type = "String")
-    public void setUrl(String url) {
-        this.url = url;
+    @StrutsTagAttribute(description = "HTML source attribute", type = "String")
+    public void setSource(String source) {
+        this.source = source;
     }
     
     @StrutsTagAttribute(description = "HTML options attribute", type = "String")

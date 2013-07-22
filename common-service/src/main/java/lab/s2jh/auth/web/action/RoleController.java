@@ -94,7 +94,7 @@ public class RoleController extends BaseController<Role, String> {
         if (authUserAclType != null && authUserAclType > 0) {
             //判断选取的类型是否属于当前登录用户管辖范围
             Integer aclType = Integer.valueOf(this.getRequiredParameter("aclType"));
-            if (authUserAclType == null || authUserAclType < aclType) {
+            if (authUserAclType < aclType) {
                 throw new DataAccessDeniedException("数据访问权限不足");
             }
             bindingEntity.setAclType(aclType);
@@ -105,13 +105,15 @@ public class RoleController extends BaseController<Role, String> {
     @Override
     @MetaData(title = "更新")
     public HttpHeaders doUpdate() {
-        //判断选取的类型是否属于当前登录用户管辖范围
-        Integer aclType = Integer.valueOf(this.getRequiredParameter("aclType"));
         Integer authUserAclType = AuthContextHolder.getAuthUserDetails().getAclType();
-        if (authUserAclType == null || authUserAclType < aclType) {
-            throw new DataAccessDeniedException("数据访问权限不足");
+        if (authUserAclType != null) {
+            //判断选取的类型是否属于当前登录用户管辖范围
+            Integer aclType = Integer.valueOf(this.getRequiredParameter("aclType"));
+            if (authUserAclType < aclType) {
+                throw new DataAccessDeniedException("数据访问权限不足");
+            }
+            bindingEntity.setAclType(aclType);
         }
-        bindingEntity.setAclType(aclType);
         return super.doCreate();
     }
 
@@ -130,8 +132,8 @@ public class RoleController extends BaseController<Role, String> {
     @MetaData(title = "计算显示已经关联权限列表")
     @SecurityControllIgnore
     public HttpHeaders findRelatedRoleR2Privileges() {
-        GroupPropertyFilter groupFilter = GroupPropertyFilter
-                .buildGroupFilterFromHttpRequest(RoleR2Privilege.class, getRequest());
+        GroupPropertyFilter groupFilter = GroupPropertyFilter.buildGroupFilterFromHttpRequest(RoleR2Privilege.class,
+                getRequest());
         Pageable pageable = PropertyFilter.buildPageableFromHttpRequest(getRequest());
         setModel(roleService.findRelatedRoleR2PrivilegesForRole(this.getId(), groupFilter, pageable));
         return buildDefaultHttpHeaders();
@@ -140,8 +142,8 @@ public class RoleController extends BaseController<Role, String> {
     @MetaData(title = "计算显示可选关联权限列表")
     @SecurityControllIgnore
     public HttpHeaders findUnRelatedPrivileges() {
-        GroupPropertyFilter groupFilter = GroupPropertyFilter
-                .buildGroupFilterFromHttpRequest(Privilege.class, getRequest());
+        GroupPropertyFilter groupFilter = GroupPropertyFilter.buildGroupFilterFromHttpRequest(Privilege.class,
+                getRequest());
         Pageable pageable = PropertyFilter.buildPageableFromHttpRequest(getRequest());
         setModel(privilegeService.findUnRelatedPrivilegesForRole(this.getId(), groupFilter, pageable));
         return buildDefaultHttpHeaders();

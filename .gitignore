@@ -1,2 +1,4 @@
 /core-service/src/main/java/lab/s2jh/core/service/BaseService.java
 target
+/project-tools/source/generate/standalone/lab
+/project-tools/source/generate/integrate/lab

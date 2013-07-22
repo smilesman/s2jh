@@ -1536,7 +1536,7 @@
   <tag>
     <description><![CDATA[Render HTML rich editor textarea tag.]]></description>
     <name>htmltextarea</name>
-    <tag-class>org.apache.struts2.views.jsp.ui.HtmlTextareaTag</tag-class>
+    <tag-class>org.apache.struts2.views.jsp.ui.S2HtmlTextareaTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <description><![CDATA[Set the rich editor height attribute on rendered html element]]></description>
@@ -1821,11 +1821,11 @@
   <tag>
     <description><![CDATA[Render an HTML input field of type text]]></description>
     <name>autocompletetextfield</name>
-    <tag-class>org.apache.struts2.views.jsp.ui.AutocompleteTextFieldTag</tag-class>
+    <tag-class>org.apache.struts2.views.jsp.ui.S2AutocompleteTextFieldTag</tag-class>
     <body-content>JSP</body-content>
     <attribute>
-      <description><![CDATA[Autocomplete request url]]></description>
-      <name>url</name>
+      <description><![CDATA[Autocomplete source]]></description>
+      <name>source</name>
       <required>true</required>
       <rtexprvalue>false</rtexprvalue>
     </attribute> 

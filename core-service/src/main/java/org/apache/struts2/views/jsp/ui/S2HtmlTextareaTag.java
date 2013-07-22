@@ -8,7 +8,7 @@ import org.apache.struts2.components.HtmlTextArea;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-public class HtmlTextareaTag extends AbstractUITag {
+public class S2HtmlTextareaTag extends AbstractUITag {
 
     protected String cols;
     protected String readonly;
