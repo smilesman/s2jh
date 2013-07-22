@@ -75,7 +75,6 @@
                                     } else {
                                         if (response.userdata.version == 0) {
                                             tab.tabs("reload", {
-                                                title : "编辑-" + response.userdata.title,
                                                 parameters : {
                                                     id : response.userdata.id
                                                 }

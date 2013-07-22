@@ -23,7 +23,7 @@
     $.extend($.jgrid.defaults, {
         datatype : "json",
         loadonce : false,
-        filterToolbar : true,
+        filterToolbar : {},
         ignoreCase : true,
         prmNames : {
             npage : "npage"
@@ -126,7 +126,7 @@
                 var grid = $($t);
 
                 pin = $.extend({
-                    filterToolbar : true,
+                    filterToolbar : {},
                     columnChooser : true
                 }, pin);
 
@@ -264,7 +264,7 @@
                 }
 
                 if (pin.filterToolbar) {
-                    grid.jqGrid('filterToolbar');
+                    grid.jqGrid('filterToolbar',pin.filterToolbar);
                 }
 
                 if (pin.columnChooser) {
@@ -298,6 +298,7 @@
             } else {
                 $($t).jqGrid('setGridParam', {
                     url : pin.url,
+                    datatype : "json",
                     page : 1
                 }).trigger("reloadGrid");
             }
@@ -310,8 +311,7 @@
         buildButtons : function(btns, cellValue, options, rowdata, action) {
             str = "";
             $.each(btns, function() {
-                ocl = " onclick=\"" + this.onclick + ";event.stopPropagation();\" onmouseover=jQuery(this).addClass('ui-state-hover'); onmouseout=jQuery(this).removeClass('ui-state-hover') ";
-                str += "<div title='" + this.title + "' style='float:left;cursor:pointer;' class='ui-pg-div' " + ocl + "><span class='ui-icon " + this.icon + "'></span></div>";
+                str += "<a class='btn-icon' href='javascript:void(0)' title='" + this.title + "' onclick=\"" + this.onclick + ";event.stopPropagation();\" style='margin:2px'><i class='" + this.icon + "'></i></a>";
             })
             return str;
         },
@@ -505,6 +505,10 @@
 
     $.SetupTriggerSourceGrid = function(sourceGrid) {
         triggerSourceGrid = $(sourceGrid);
+    }
+    
+    $.triggerGridRowDblClick = function(trigger) {
+        $(trigger).closest("tr.jqgrow").dblclick();
     }
 
 })(jQuery);
