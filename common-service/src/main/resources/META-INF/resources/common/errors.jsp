@@ -43,6 +43,11 @@
     } else if (e instanceof java.lang.IllegalArgumentException) {
         errorMessage = e.getMessage();
         skipLog = true;
+    } else {
+        if (request.getAttribute("SPRING_SECURITY_403_EXCEPTION") != null) {
+            errorMessage = "访问权限不足，请联系管理员。";
+            skipLog = true;
+        }
     }
     if (!skipLog) {
         StringBuilder sb = new StringBuilder("\n-------Logger MDC Data Begin--------\n");
