@@ -49,6 +49,9 @@ public class S2TabbedpanelTag extends AbstractClosingTag {
         if (this.cssClass == null) {
             uiBean.setCssClass("hide");
         }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
     }
 
     public void setDisableItemsExcludeFirst(String disableItemsExcludeFirst) {

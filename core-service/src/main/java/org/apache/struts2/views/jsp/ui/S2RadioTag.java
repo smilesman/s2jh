@@ -46,6 +46,9 @@ public class S2RadioTag extends RadioTag {
         if (this.cssClass == null) {
             uiBean.setCssClass("radio inline");
         }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
     }
 
     public void setValidator(String validator) {

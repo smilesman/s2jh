@@ -12,7 +12,8 @@
     });
 </script>
 <div class="container-fluid">
-	<s2:form cssClass="form-horizontal" method="post" id="changePasswdForm" action="/layout!doPasswd">
+	<s:form cssClass="form-horizontal" method="post" id="changePasswdForm"
+		action="/auth/profile!doPasswd">
 		<div class="row-fluid">
 			<div class="toolbar">
 				<div class="toolbar-inner">
@@ -28,19 +29,23 @@
 		<div class="well">
 			<div class="row-fluid">
 				<div class="span12">
-					<s2:password name="oldpasswd" cssClass="input-xlarge" validator="{required:true}" label="输入原密码" />
+					<s2:password name="oldpasswd" cssClass="input-xlarge" validator="{required:true}" label="输入原密码"
+						requiredLabel="true" />
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<s2:password name="newpasswd" id="newpasswd" cssClass="input-xlarge" validator="{required:true,minlength:6}" label="输入新密码" />
+					<s2:password name="newpasswd" cssClass="input-xlarge" validator="{required:true,minlength:6}"
+						label="输入新密码" requiredLabel="true" />
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span12">
-					<s2:password name="cfmpasswd" cssClass="input-xlarge" validator="{required:true,minlength:6,equalTo:'#newpasswd'}" label="确认新密码" />
+					<s2:password name="cfmpasswd" cssClass="input-xlarge"
+						validator="{required:true,minlength:6,equalToByName:'newpasswd'}" label="确认新密码"
+						requiredLabel="true" />
 				</div>
 			</div>
 		</div>
-	</s2:form>
+	</s:form>
 </div>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 <div class="container-fluid data-edit">
-	<s:form cssClass="form-horizontal" method="post"
+	<s2:form cssClass="form-horizontal" method="post"
 		action="%{isBlank(#parameters.id)?'/biz/sys/region-code!doCreate':'/biz/sys/region-code!doUpdate'}">
 		<s:hidden name="id" />
 		<s:hidden name="version" />
@@ -60,5 +60,5 @@
 				</div>
 			</div>
 		</div>
-	</s:form>
+	</s2:form>
 </div>

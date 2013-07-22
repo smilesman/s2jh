@@ -40,6 +40,9 @@ public class S2DateTextFieldTag extends TextFieldTag {
             //设置ID随机
             uiBean.setId("datetext_" + RandomStringUtils.randomAlphabetic(10));
         }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
         TagValidatorAttributeBuilder.buildValidatorAttribute(validator, this, this.getStack(),
                 (HttpServletRequest) this.pageContext.getRequest(), uiBean);
 

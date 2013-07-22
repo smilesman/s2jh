@@ -46,4 +46,6 @@ public class SetupController extends RestActionSupport {
         userService.initSetupUser(user, password);
         ServletActionContext.getResponse().sendRedirect("/pub/signin");
     }
+    
+    
 }

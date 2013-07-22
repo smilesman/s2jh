@@ -33,6 +33,9 @@ public class S2ButtonTag extends AbstractClosingTag {
             //设置ID随机
             uiBean.setId("button_" + RandomStringUtils.randomAlphabetic(10));
         }
+        if (theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
         
         uiBean.setType(type);
     }

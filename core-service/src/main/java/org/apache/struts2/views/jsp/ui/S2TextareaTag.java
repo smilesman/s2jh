@@ -34,6 +34,9 @@ public class S2TextareaTag extends TextareaTag {
         if (this.cssClass == null) {
             uiBean.setCssClass("input-fluid");
         }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
     }
 
     public void setValidator(String validator) {

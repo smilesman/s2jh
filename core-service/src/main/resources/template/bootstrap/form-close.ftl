@@ -20,9 +20,8 @@
  * under the License.
  */
 -->
-<#include "/${parameters.templateDir}/css_xhtml/control-close.ftl" />
+<#include "/${parameters.templateDir}/bootstrap/control-close.ftl" />
 <#include "/${parameters.templateDir}/simple/form-close.ftl" />
-<#include "/${parameters.templateDir}/xhtml/form-close-validate.ftl" />
 <#if parameters.focusElement?if_exists != "">
 <script type="text/javascript">
     StrutsUtils.addOnLoad(function() {
@@ -31,5 +30,14 @@
             element.focus();
         }
     });
+</script>
+</#if>
+<#if parameters.dynamicAttributes["autoValidate"]?if_exists != "false">
+<script type="text/javascript">
+jQuery(document).ready(function () { 
+    $("#${parameters.id?html}").formvalidate({
+        
+    });
+});
 </script>
 </#if>

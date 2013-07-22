@@ -45,6 +45,9 @@ public class S2PasswordTag extends PasswordTag {
         if (this.cssClass == null) {
             uiBean.setCssClass("input-fluid");
         }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
     }
 
     public void setValidator(String validator) {

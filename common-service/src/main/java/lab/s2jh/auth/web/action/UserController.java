@@ -237,4 +237,5 @@ public class UserController extends BaseController<User, String> {
     public HttpHeaders revisionCompare() {
         return super.revisionCompare();
     }
+    
 }

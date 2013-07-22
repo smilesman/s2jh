@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 <div class="container-fluid data-edit">
-	<s2:form cssClass="form-horizontal" method="post"
+	<s2:form cssClass="form-horizontal" method="post" theme="bootstrap"
 		action="%{persistentedModel?'/sys/data-dict!doUpdate':'/sys/data-dict!doCreate'}">
 		<s:hidden name="id" />
 		<s:hidden name="version" />

@@ -70,12 +70,15 @@ public class S2SingleFileTag extends TextFieldTag {
             //设置ID随机
             uiBean.setId("file_" + RandomStringUtils.randomAlphabetic(10));
         }
-
+        
         uiBean.setName(this.name + "_label");
         uiBean.setValue(labelValue);
 
         if (this.cssClass == null) {
             uiBean.setCssClass("input-large");
+        }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
         }
         if (this.readonly == null) {
             uiBean.setReadonly("true");

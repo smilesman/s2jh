@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="hero-unit">Welcome...</div>
+		<div class="hero-unit">A Java/JEE development framework based on Struts/Spring/JPA/Hibernate and jquery/bootstrap</div>
 	</div>
 	<%@ include file="/common/index-footer.jsp"%>
 </body>

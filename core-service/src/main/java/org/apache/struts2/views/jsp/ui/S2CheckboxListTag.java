@@ -24,6 +24,9 @@ public class S2CheckboxListTag extends CheckboxListTag {
         if (this.cssClass == null) {
             uiBean.setCssClass("checkbox inline");
         }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
     }
 
     public void setValidator(String validator) {

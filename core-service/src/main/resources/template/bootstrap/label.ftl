@@ -20,8 +20,7 @@
  * under the License.
  */
 -->
-<#--include "/${parameters.templateDir}/css_xhtml/controlheader.ftl" /-->
-<#include "/${parameters.templateDir}/${parameters.theme}/controlheader.ftl" />
+<#include "/${parameters.templateDir}/bootstrap/controlheader.ftl" />
 <label<#rt/>
 <#if parameters.id??>
  id="${parameters.id?html}"<#rt/>
@@ -44,4 +43,4 @@
 </#if>
 &nbsp;
 </label>
-<#include "/${parameters.templateDir}/css_xhtml/controlfooter.ftl" />
+<#include "/${parameters.templateDir}/bootstrap/controlfooter.ftl" />

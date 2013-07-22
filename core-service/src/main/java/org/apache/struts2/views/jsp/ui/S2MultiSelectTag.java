@@ -21,13 +21,8 @@
 
 package org.apache.struts2.views.jsp.ui;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.components.Component;
-import org.apache.struts2.components.S2MultiSelect;
-
-import com.opensymphony.xwork2.util.ValueStack;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.struts2.components.UIBean;
 
 
 /**
@@ -38,7 +33,15 @@ import com.opensymphony.xwork2.util.ValueStack;
  */
 public class S2MultiSelectTag extends SelectTag {
 
-    public Component getBean(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
-        return new S2MultiSelect(stack, req, res);
+    protected void populateParams() {
+        super.populateParams();
+        UIBean uiBean = ((UIBean) component);
+        uiBean.setTemplate("multiselect");
+        if (id == null) {
+            uiBean.setId("select_" + RandomStringUtils.randomAlphabetic(10));
+        }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
     }
 }

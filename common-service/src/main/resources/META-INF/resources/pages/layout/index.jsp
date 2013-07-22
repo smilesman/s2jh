@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/common/page-header.jsp"%>
 <%@ include file="/common/index-header.jsp"%>
-<title>S2JH Prototype</title>
+<title><s:property value="%{systemTitle}" /></title>
 <script src="${base}/components/jquery-xtabpanel/2.0/xTabPanel.js?_=${buildVersion}"></script>
 <link rel="stylesheet" type="text/css"
 	href="${base}/components/jquery-xtabpanel/2.0/xTabPanel.css?_=${buildVersion}">
@@ -30,8 +30,7 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container">
-					<a class="brand" href='javascript:void(0)' onclick="window.location.reload()">&nbsp;S2JH - 
-					<small>A Java/JEE development framework based on Struts/Spring/JPA/Hibernate and jquery/bootstrap</small></a>
+					<a class="brand" href='javascript:void(0)' onclick="window.location.reload()">&nbsp;<s:property value="%{systemTitle}" /></a>
 					<div class="nav-collapse collapse navbar-responsive-collapse">
 						<ul class="nav pull-right">
 							<li><a href="javascript:void(0)"><s:property value="%{authUserDetails.username}" /></a></li>
@@ -299,7 +298,7 @@
             $("#changePasswd").click(function() {
                 $.popupDialog({
                     dialogId : 'changePasswdDialog',
-                    url : "${base}/layout!passwd",
+                    url : "${base}/auth/profile!passwd",
                     title : "修改登录密码",
                     width : 600,
                     height : 350

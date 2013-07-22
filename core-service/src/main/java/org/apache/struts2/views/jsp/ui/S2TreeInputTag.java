@@ -85,6 +85,9 @@ public class S2TreeInputTag extends TextFieldTag {
         if (this.cssClass == null) {
             uiBean.setCssClass("input-fluid");
         }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
 
         TagValidatorAttributeBuilder.buildValidatorAttribute(validator, this, this.getStack(),
                 (HttpServletRequest) this.pageContext.getRequest(), uiBean);

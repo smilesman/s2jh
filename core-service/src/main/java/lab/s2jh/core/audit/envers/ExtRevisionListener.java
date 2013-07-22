@@ -26,7 +26,7 @@ public class ExtRevisionListener implements RevisionListener {
         }
         operationData.put("operationExplain", operationExplain);
     }
-    
+
     public static void setOperationEvent(String operationEvent) {
         Map<String, String> operationData = operationDataContainer.get();
         if (operationData == null) {
@@ -35,7 +35,7 @@ public class ExtRevisionListener implements RevisionListener {
         }
         operationData.put("operationEvent", operationEvent);
     }
-    
+
     public static void setNewState(String newState) {
         Map<String, String> operationData = operationDataContainer.get();
         if (operationData == null) {
@@ -44,7 +44,7 @@ public class ExtRevisionListener implements RevisionListener {
         }
         operationData.put("newState", newState);
     }
-    
+
     public static void setOldState(String oldState) {
         Map<String, String> operationData = operationDataContainer.get();
         if (operationData == null) {
@@ -57,15 +57,17 @@ public class ExtRevisionListener implements RevisionListener {
     public void newRevision(Object revisionEntity) {
         ExtDefaultRevisionEntity revEntity = (ExtDefaultRevisionEntity) revisionEntity;
         AuthUserDetails authUserDetails = AuthContextHolder.getAuthUserDetails();
-        revEntity.setUsername(authUserDetails.getUsername());
-        revEntity.setUid(authUserDetails.getUid());
+        if (authUserDetails != null) {
+            revEntity.setUsername(authUserDetails.getUsername());
+            revEntity.setUid(authUserDetails.getUid());
+        }
         Map<String, String> operationData = operationDataContainer.get();
-        if(operationData!=null){
+        if (operationData != null) {
             revEntity.setOperationExplain(operationData.get("operationExplain"));
             revEntity.setOperationEvent(operationData.get("operationEvent"));
             revEntity.setNewState(operationData.get("newState"));
             revEntity.setOldState(operationData.get("oldState"));
         }
-        
+
     }
 }

@@ -55,9 +55,13 @@ public class S2TextFieldTag extends TextFieldTag {
         if (this.cssClass == null) {
             uiBean.setCssClass("input-fluid");
         }
+        if (this.theme == null) {
+            uiBean.setTheme("bootstrap");
+        }
         if (this.id == null) {
             uiBean.setId("text_" + RandomStringUtils.randomAlphabetic(10));
         }
+        
     }
 
     public void setValidator(String validator) {
