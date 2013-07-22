@@ -112,12 +112,10 @@
                     url : "${base}/sys/data-dict!doDelete"
                 },
                 addRow : {
-                    url : "${base}/sys/data-dict!inputTabs",
-                    toTab : "#dataDictIndexTabs"
+                    url : "${base}/sys/data-dict!inputTabs"
                 },
                 editRow : {
                     url : "${base}/sys/data-dict!inputTabs",
-                    toTab : "#dataDictIndexTabs",
                     labelCol : 'TODO'
                 },                
                 caption:"数据字典列表"

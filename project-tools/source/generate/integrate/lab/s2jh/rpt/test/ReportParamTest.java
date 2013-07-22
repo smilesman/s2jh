@@ -1,4 +1,6 @@
-package lab.s2jh.rpt.test.service;
+package lab.s2jh.rpt.service.test;
+
+import java.util.List;
 
 import lab.s2jh.rpt.entity.ReportParam;
 import lab.s2jh.rpt.service.ReportParamService;

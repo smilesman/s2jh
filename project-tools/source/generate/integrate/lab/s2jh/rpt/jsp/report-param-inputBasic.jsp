@@ -36,6 +36,11 @@
             </div>
             <div class="row-fluid">
                 <div class="span6">
+                    <s2:radio name="required" list="#application.booleanLabelMap" label="必填标识"/>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
                     <s2:radio name="disabled" list="#application.booleanLabelMap" label="禁用标识"/>
                 </div>
             </div>

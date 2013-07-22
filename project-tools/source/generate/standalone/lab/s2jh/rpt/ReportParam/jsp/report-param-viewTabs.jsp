@@ -5,8 +5,10 @@
         <li><a href="${base}/rpt/report-param!view?id=<s:property value='#parameters.id'/>">
         <span>基本信息</span>
         </a></li>
+        <%-- 去掉注释添加功能Tab
         <li><a href="${base}/rpt/report-param!forward?_to_=TODO&id=<s:property value='#parameters.id'/>">
         <span>TODO关联</span>
         </a></li>
+        --%>
     </ul>
 </s2:tabbedpanel>

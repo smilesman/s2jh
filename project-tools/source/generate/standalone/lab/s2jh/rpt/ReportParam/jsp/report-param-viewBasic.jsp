@@ -25,6 +25,16 @@
         <div class="row-fluid">
             <div class="span6">
                  <div class="control-group">
+                    <label class="control-label">必填标识</label>
+                    <div class="controls">
+                        <s:property value="#application.booleanLabelMap[required]" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                 <div class="control-group">
                     <label class="control-label">禁用标识</label>
                     <div class="controls">
                         <s:property value="#application.booleanLabelMap[disabled]" />

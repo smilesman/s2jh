@@ -1,4 +1,6 @@
-package lab.s2jh.biz.demo.test.service;
+package lab.s2jh.biz.demo.service.test;
+
+import java.util.List;
 
 import lab.s2jh.biz.demo.entity.Demo;
 import lab.s2jh.biz.demo.service.DemoService;

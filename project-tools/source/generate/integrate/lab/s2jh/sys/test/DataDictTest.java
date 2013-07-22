@@ -1,4 +1,6 @@
-package lab.s2jh.sys.test.service;
+package lab.s2jh.sys.service.test;
+
+import java.util.List;
 
 import lab.s2jh.sys.entity.DataDict;
 import lab.s2jh.sys.service.DataDictService;

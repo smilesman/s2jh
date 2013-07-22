@@ -42,7 +42,7 @@
         $(function() {
             $("#reportParamListDiv").grid({
                 url: '${base}/rpt/report-param!findByPage',
-                colNames : [ '操作','代码','名称','禁用标识','参数类型','前端UI校验规则','缺省参数值','是否允许多选 ','集合数据源 ','排序号','创建时间','版本号'],
+                colNames : [ '操作','代码','名称','必填标识','禁用标识','参数类型','前端UI校验规则','缺省参数值','是否允许多选 ','集合数据源 ','排序号','创建时间','版本号'],
                 colModel : [ {
                     name : 'operation',
                     align : 'center',
@@ -68,6 +68,12 @@
                 }, {
                     name : 'title',
                     align : 'left'
+                }, {
+                    name : 'required',
+                    width : 60,
+                    fixed : true,
+                    formatter : booleanFormatter,
+                    align : 'center'
                 }, {
                     name : 'disabled',
                     width : 60,
@@ -114,12 +120,10 @@
                     url : "${base}/rpt/report-param!doDelete"
                 },
                 addRow : {
-                    url : "${base}/rpt/report-param!inputTabs",
-                    toTab : "#reportParamIndexTabs"
+                    url : "${base}/rpt/report-param!inputTabs"
                 },
                 editRow : {
                     url : "${base}/rpt/report-param!inputTabs",
-                    toTab : "#reportParamIndexTabs",
                     labelCol : 'TODO'
                 },                
                 caption:"报表参数列表"
