@@ -42,7 +42,7 @@
         $(function() {
             $("#loggingEventListDiv").grid({
                 url: '${base}/sys/logging-event!findByPage',
-                colNames : [ '操作',,'创建时间','版本号'],
+                colNames : [ '操作','创建时间','版本号'],
                 colModel : [ {
                     name : 'operation',
                     align : 'center',

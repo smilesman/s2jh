@@ -3,6 +3,9 @@ package lab.s2jh.sys.entity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/** 
+ * @see http://logback.qos.ch/manual/configuration.html #DBAppender
+ */
 @Embeddable
 public class LoggingEventExceptionId implements java.io.Serializable {
 

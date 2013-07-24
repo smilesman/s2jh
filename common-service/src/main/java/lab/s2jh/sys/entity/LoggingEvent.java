@@ -23,13 +23,16 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.CollectionUtils;
 
+/** 
+ * @see http://logback.qos.ch/manual/configuration.html #DBAppender
+ */
 @Entity
 @Table(name = "logging_event")
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @MetaData(title = "日志事件", description = "用于基于Logback日志DBAppender的ERROR日志数据存取")
 public class LoggingEvent extends PersistableEntity<Long> {
 
-    private Long eventId;
+    private Long id;
     private Long timestmp;
     private String formattedMessage;
     private String loggerName;
@@ -57,13 +60,13 @@ public class LoggingEvent extends PersistableEntity<Long> {
     @Id
     @Column(name = "event_id")
     @GeneratedValue(generator = "idGenerator")
-    @GenericGenerator(name = "idGenerator", strategy = "assigned")
-    public Long getEventId() {
-        return eventId;
+    @GenericGenerator(name = "idGenerator", strategy = "native")
+    public Long getId() {
+        return id;
     }
 
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getTimestmp() {
@@ -241,12 +244,6 @@ public class LoggingEvent extends PersistableEntity<Long> {
             }
         }
         return sb.toString();
-    }
-
-    @Override
-    @Transient
-    public Long getId() {
-        return eventId;
     }
 
     @Override

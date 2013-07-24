@@ -7,15 +7,19 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/** 
+ * @see http://logback.qos.ch/manual/configuration.html #DBAppender
+ */
 @Entity
 @Table(name = "logging_event_property")
-@Cache(usage=CacheConcurrencyStrategy.NONE)
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 public class LoggingEventProperty implements java.io.Serializable {
 
     private LoggingEventPropertyId id;
@@ -44,7 +48,8 @@ public class LoggingEventProperty implements java.io.Serializable {
         this.loggingEvent = loggingEvent;
     }
 
-    @Column(name = "mapped_value", length = 1024)
+    @Lob
+    @Column(name = "mapped_value")
     public String getMappedValue() {
         return this.mappedValue;
     }

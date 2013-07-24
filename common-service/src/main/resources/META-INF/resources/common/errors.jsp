@@ -50,7 +50,7 @@
         }
     }
     if (!skipLog) {
-        StringBuilder sb = new StringBuilder("\n-------Logger MDC Data Begin--------\n");
+        StringBuilder sb = new StringBuilder("-------Logger MDC Data Begin--------\n");
 
         sb.append("Request Header Data:\n");
         java.util.Enumeration headerNames = request.getHeaderNames();

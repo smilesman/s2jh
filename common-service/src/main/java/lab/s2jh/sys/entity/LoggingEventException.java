@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+/** 
+ * @see http://logback.qos.ch/manual/configuration.html #DBAppender
+ */
 @Entity
 @Table(name = "logging_event_exception")
 @Cache(usage=CacheConcurrencyStrategy.NONE)
