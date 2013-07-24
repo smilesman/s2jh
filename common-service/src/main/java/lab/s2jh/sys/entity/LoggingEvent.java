@@ -17,11 +17,15 @@ import javax.persistence.Transient;
 
 import lab.s2jh.core.annotation.MetaData;
 import lab.s2jh.core.entity.PersistableEntity;
+import lab.s2jh.core.web.json.DateTimeJsonSerializer;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.CollectionUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /** 
  * @see http://logback.qos.ch/manual/configuration.html #DBAppender
@@ -194,6 +198,7 @@ public class LoggingEvent extends PersistableEntity<Long> {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "loggingEvent", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     public List<LoggingEventProperty> getLoggingEventProperties() {
         return loggingEventProperties;
     }
@@ -203,6 +208,7 @@ public class LoggingEvent extends PersistableEntity<Long> {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "loggingEvent", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     public List<LoggingEventException> getLoggingEventExceptions() {
         return loggingEventExceptions;
     }
@@ -222,6 +228,7 @@ public class LoggingEvent extends PersistableEntity<Long> {
     }
 
     @Column(length = 4000)
+    @JsonIgnore
     public String getOperationExplain() {
         return operationExplain;
     }
@@ -231,11 +238,13 @@ public class LoggingEvent extends PersistableEntity<Long> {
     }
 
     @Transient
+    @JsonSerialize(using = DateTimeJsonSerializer.class)
     public Date getTimestampDate() {
         return new Date(this.getTimestmp());
     }
 
     @Transient
+    @JsonIgnore
     public String getExceptionStack() {
         StringBuilder sb = new StringBuilder();
         if (!CollectionUtils.isEmpty(loggingEventExceptions)) {

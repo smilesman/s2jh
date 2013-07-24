@@ -68,6 +68,12 @@ public class MenuController extends BaseController<Menu, String> {
     @Override
     @MetaData(title = "更新")
     public HttpHeaders doUpdate() {
+        String parentId = this.getParameter("parentId");
+        if (StringUtils.isNotBlank(parentId) && !"NULL".equalsIgnoreCase(parentId)) {
+            bindingEntity.setParent(menuService.findOne(parentId));
+        } else {
+            bindingEntity.setParent(null);
+        }
         return super.doUpdate();
     }
 

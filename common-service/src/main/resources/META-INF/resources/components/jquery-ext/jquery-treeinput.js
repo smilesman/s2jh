@@ -14,7 +14,7 @@
 
             var hiddenElement = null;
             if (self.options.hiddenName && self.options.hiddenName != '') {
-                hiddenElement = $('<input name="' + self.options.hiddenName + ' value="' + self.options.hiddenValue + '"  type="hidden"/>');
+                hiddenElement = $('<input name="' + self.options.hiddenName + '" value="' + self.options.hiddenValue + '"  type="hidden"/>');
                 hiddenElement.appendTo(divContaner);
             }
 
